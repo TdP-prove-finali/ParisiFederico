@@ -68,7 +68,10 @@ CREATE TABLE statistica_stagionale (
     palle_recuperate    INT NULL,
     palle_perse         INT NULL,
     stoppate            INT NULL,
+    stoppate_subite     INT NULL,
     falli               INT NULL,
+    falli_subiti        INT NULL,
+    valutazione         INT NULL,
     UNIQUE (id_giocatore, id_partecipazione),
     FOREIGN KEY (id_giocatore)      REFERENCES giocatore(id_giocatore),
     FOREIGN KEY (id_partecipazione) REFERENCES partecipazione_squadra(id_partecipazione)
@@ -77,4 +80,5 @@ CREATE TABLE statistica_stagionale (
 INSERT INTO stagione (anno_inizio) VALUES (2025);
 
 INSERT INTO campionato (nome, livello) VALUES
+    ('Serie A2', 2),
     ('Serie B Nazionale', 3);

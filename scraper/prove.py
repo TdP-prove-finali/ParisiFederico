@@ -1,6 +1,6 @@
-import requests
+import pandas as pd
 
-url = "https://web.archive.org/web/20260622113109/https://www.legapallacanestro.com/serie-b/tav-treviglio-brianza-basket"  # lo snapshot Wayback di una squadra
-risposta = requests.get(url)
-print("Codice risposta:", risposta.status_code)
-print("rubbini" in risposta.text.lower())
+pd.set_option("display.max_columns", None)
+tabelle = pd.read_html("pagine/classificaSerieBGironeB.html", encoding="utf-8")
+print(len(tabelle))
+print(tabelle[1])
