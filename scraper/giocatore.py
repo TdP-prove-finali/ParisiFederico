@@ -56,12 +56,16 @@ def leggiAnagrafica(soup):
     scheda = {}
     labels = soup.find_all("span", class_="spec-label")
     values = soup.find_all("span", class_="spec-value")
+
     for i in range(len(labels)):
         scheda[labels[i].text.strip()] = values[i].text.strip()
 
     dataNascita = None
     if scheda.get("Data di nascita:"):
-        dataNascita = datetime.strptime(scheda["Data di nascita:"], "%d/%m/%Y").date()
+        try:
+            dataNascita = datetime.strptime(scheda["Data di nascita:"], "%d/%m/%Y").date()
+        except ValueError:
+            dataNascita = None
 
     altezza = None
     if scheda.get("Altezza:"):
@@ -75,6 +79,10 @@ def leggiAnagrafica(soup):
         ruolo = divRuolo.text.strip()
 
     nazionalita = scheda.get("Nazionalità:")
+
+    # alcune giocatori italiani hanno nazionalità "Italia" invece di "ITA"
+    nomiPaesi = {"Italia": "ITA"}
+    nazionalita = nomiPaesi.get(nazionalita, nazionalita)
 
     return {
         "nome": nome,
@@ -99,13 +107,15 @@ def leggiStatistiche(html, stagione ="25/26"):
     except:
         return [] # il giocatore non ha statistiche
 
-    tabella = totali.values.tolist()
+    tabella = totali.fillna(0).values.tolist()
 
     righe = []
 
     for riga in tabella[1:]: # la riga 0 contiene i nomi delle colonne
         competizione = str(riga[0])
         if competizione.startswith("Serie B - Girone") and stagione in competizione:
+            if int(riga[colonne["partite"]]) == 0:
+                continue
             parteSinistra, squadra = competizione.split(": ", 1)
             girone = parteSinistra.replace("Serie B - Girone ", "").replace(" " + stagione, "")
             statistica = {"girone": girone, "squadra": squadra}
@@ -122,7 +132,7 @@ def leggiPaginaGiocatore(slug):
     e le statistiche stagionali
     """
 
-    risposta = requests.get(urlLNP + slug, headers={"User-Agent": userAgent})
+    risposta = requests.get(urlLNP + slug, headers={"User-Agent": userAgent}, timeout = 30)
 
     if risposta.status_code != 200:
         print("Errore", risposta.status_code, "per", slug)

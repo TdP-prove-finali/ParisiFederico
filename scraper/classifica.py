@@ -7,7 +7,6 @@ def leggiClassifica(percorsoFile, girone):
     lista di dizionari, uno per squadra
     """
 
-
     # la prima tabella contiene solo l'intestazione, i dati sono nella seconda
     classifica = pd.read_html(percorsoFile, encoding="utf-8")[1]
 
