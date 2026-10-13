@@ -28,12 +28,11 @@ def leggiClassifica(percorsoFile, girone):
 
 
 if __name__ == "__main__":
-    nomiSquadreExcel = pd.read_excel("SquadreBNazionale.xlsx")["NOME"].tolist()
+    nomiFile = ["classificaA2_2526.html", "classificaA2_2425.html",
+                "classificaB_2425_GironeA.html", "classificaB_2425_GironeB.html"]
 
-    for girone in ["A", "B"]:
-        squadre = leggiClassifica("pagine/classificaSerieBGirone" + girone + ".html", girone)
-        print("Girone", girone)
+    for nomeFile in nomiFile:
+        squadre = leggiClassifica("pagine/" + nomeFile, None)
+        print(f"{nomeFile}: {len(squadre)} squadre")
         for squadra in squadre:
-            print(squadra)
-            if squadra["nome"].upper() not in nomiSquadreExcel:
-                print("Attenzione: squadra non trovata nel file Excel")
+            print(f"{squadra['posizione']} {squadra['nome']} V: {squadra['vittorie']} P: {squadra['sconfitte']}")

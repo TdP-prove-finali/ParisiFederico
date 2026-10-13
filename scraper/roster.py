@@ -8,7 +8,11 @@ def leggiPaginaSquadra(url):
     Legge il Wayback della pagina di una squadra.
     Restituisce il codice LNP della squadra e la lista dei giocatori (slug, nome).
     """
-    risposta = requests.get(url)
+    risposta = requests.get(url, timeout = 30)
+    if risposta.status_code != 200:
+        print(f"Errore {risposta.status_code} per {url}")
+        return None, []
+
     soup = BeautifulSoup(risposta.text, "html.parser")
 
     # il codice della squadra è nella classe del body
@@ -21,6 +25,10 @@ def leggiPaginaSquadra(url):
     # cerco i link solo dentro il contenitore del roster
     giocatori = []
     roster = soup.find("div", class_="view-roster")
+    if roster is None:
+        print(f"Roster non trovato per {url}")
+        return idLNP, giocatori
+
     for link in roster.find_all("a"):
         nome = " ".join(link.text.split())
         href = link.get("href", "")

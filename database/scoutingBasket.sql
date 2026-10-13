@@ -25,13 +25,14 @@ CREATE TABLE partecipazione_squadra (
     id_squadra INT NOT NULL,
     id_stagione INT NOT NULL,
     id_campionato INT NOT NULL,
-    girone VARCHAR(50) NULL,
+    nome VARCHAR(100) NOT NULL,
+    girone CHAR(1) NULL,
     posizione INT NULL,
     vittorie INT NULL,
     sconfitte INT NULL,
     punti_fatti INT NULL,
     punti_subiti INT NULL,
-    UNIQUE (id_squadra, id_stagione, id_campionato),
+    UNIQUE (id_squadra, id_stagione),
     FOREIGN KEY (id_squadra) REFERENCES squadra(id_squadra),
     FOREIGN KEY (id_stagione) REFERENCES stagione(id_stagione),
     FOREIGN KEY (id_campionato) REFERENCES campionato(id_campionato)
@@ -77,7 +78,7 @@ CREATE TABLE statistica_stagionale (
     FOREIGN KEY (id_partecipazione) REFERENCES partecipazione_squadra(id_partecipazione)
 );
 
-INSERT INTO stagione (anno_inizio) VALUES (2025);
+INSERT INTO stagione (anno_inizio) VALUES (2024), (2025);
 
 INSERT INTO campionato (nome, livello) VALUES
     ('Serie A2', 2),

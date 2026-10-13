@@ -1,3 +1,4 @@
+import time
 import requests
 import pandas as pd
 from io import StringIO
@@ -30,6 +31,8 @@ colonne = {
     "valutazione": 23,
 }
 
+stagioni = ["24/25", "25/26"]
+
 def dividiNome(cognomeNome, nomeCognome):
 
     """
@@ -50,7 +53,7 @@ def leggiAnagrafica(soup):
     nomeCognome = soup.find("h1", class_ ="page-header").text
     nome, cognome = dividiNome(cognomeNome, nomeCognome)
     if nome is None:
-        print("Attenzione: nome da controllare a mano:", cognomeNome.strip())
+        print(f"Attenzione: nome da controllare a mano: {cognomeNome.strip()}")
 
     # coppie label - value
     scheda = {}
@@ -93,11 +96,26 @@ def leggiAnagrafica(soup):
         "ruolo": ruolo,
     }
 
-
-def leggiStatistiche(html, stagione ="25/26"):
+def riconosciCompetizione(parteSinistra):
 
     """
-    restituisce le righe di regular season della stagione indicata,
+    dalla prima colonna della tabella Totali ricava campionato stagione e girone;
+    restituisce None se la riga non è di serie A2 o B delle stagioni scelte
+    """
+
+    for stagione in stagioni:
+        if parteSinistra == "Serie A2 " + stagione:
+            return "Serie A2", stagione, None
+        if parteSinistra.startswith("Serie B - Girone ") and parteSinistra.endswith(" " + stagione):
+            girone = parteSinistra.replace("Serie B - Girone ", "").replace(" " + stagione, "")
+            return "Serie B Nazionale", stagione, girone
+    return None
+
+
+def leggiStatistiche(html):
+
+    """
+    restituisce le righe di regular season di A2 e B delle stagioni 24/25 e 25/26,
     di solito è una ma possono essere più di una se il giocatore
     ha cambiato squadra durante la stagione
     """
@@ -113,15 +131,23 @@ def leggiStatistiche(html, stagione ="25/26"):
 
     for riga in tabella[1:]: # la riga 0 contiene i nomi delle colonne
         competizione = str(riga[0])
-        if competizione.startswith("Serie B - Girone") and stagione in competizione:
-            if int(riga[colonne["partite"]]) == 0:
-                continue
-            parteSinistra, squadra = competizione.split(": ", 1)
-            girone = parteSinistra.replace("Serie B - Girone ", "").replace(" " + stagione, "")
-            statistica = {"girone": girone, "squadra": squadra}
-            for nomeColonna, posizione in colonne.items():
-                statistica[nomeColonna] = int(riga[posizione])
-            righe.append(statistica)
+
+        if ": " not in competizione:
+            continue
+        parteSinistra, squadra = competizione.split(": ", 1)
+
+        risultato = riconosciCompetizione(parteSinistra)
+        if risultato is None:
+            continue
+        if int(riga[colonne["partite"]]) == 0:
+            continue
+
+        campionato, stagione, girone = risultato
+        statistica = {"campionato": campionato, "stagione": stagione, "girone": girone, "squadra": squadra}
+        for nomeColonna, posizione in colonne.items():
+            statistica[nomeColonna] = int(riga[posizione])
+        righe.append(statistica)
+
     return righe
 
 
@@ -135,7 +161,7 @@ def leggiPaginaGiocatore(slug):
     risposta = requests.get(urlLNP + slug, headers={"User-Agent": userAgent}, timeout = 30)
 
     if risposta.status_code != 200:
-        print("Errore", risposta.status_code, "per", slug)
+        print(f"Errore {risposta.status_code} per {slug}")
         return None, []
 
     soup = BeautifulSoup(risposta.text, "html.parser")
@@ -145,7 +171,12 @@ def leggiPaginaGiocatore(slug):
     return giocatore, statistiche
 
 if __name__ == "__main__":
-    giocatore, statistiche = leggiPaginaGiocatore("cappelletti-carlo")
-    print(giocatore)
-    for riga in statistiche:
-        print(riga)
+
+    for slug in ["marini-pierpaolo", "landi-aristide", "radunic-matej", "cappelletti-carlo"]:
+        giocatore, statistiche = leggiPaginaGiocatore(slug)
+        if giocatore is None:
+            continue
+        print(f"{giocatore['cognome']} {giocatore['nome']}")
+        for riga in statistiche:
+            print(f"{riga['campionato']} {riga['stagione']} {riga['girone']} {riga['squadra']} partite: {riga['partite']}")
+        time.sleep(10)
