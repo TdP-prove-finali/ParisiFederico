@@ -36,7 +36,7 @@ Modestas,Kancleris,2001-06-01,LTU,206.0,Centro,kancleris-modestas
 Lorenzo,Cardi,2009-10-01,ITA,187.0,Guardia,cardi-lorenzo
 Matteo,Schina,2001-03-16,ITA,182.0,Play,schina-matteo
 Nicolò,Ianuale,2001-12-05,ITA,198.0,Ala,ianuale-nicol%C3%B2
-Tommaso,Minoli,1994-03-19,Ita,187.0,Play/Guardia,minoli-tommaso-0
+Tommaso,Minoli,1994-03-19,ITA,187.0,Play/Guardia,minoli-tommaso-0
 Tadej,Kumer,2005-06-26,SLO/ITA,200.0,Guardia,kumer-tadej
 Caleb,Walker,1989-12-16,USA,193.0,Guardia,walker-caleb
 Lautaro,Berra,1998-01-09,ARG,208.0,Centro,berra-lautaro
@@ -48,7 +48,7 @@ Luca,Campogrande,1996-04-30,ITA,198.0,Guardia/Ala,campogrande-luca
 Pierpaolo,Marini,1993-10-08,ITA,193.0,Guardia,marini-pierpaolo
 Milo,Guastella,2010-05-23,ITA,191.0,Guardia/Ala,guastella-milo
 Pietro,Bocconcelli,1998-05-04,ITA,193.0,Guardia/Ala,bocconcelli-pietro
-Nicolo,Ronci,2009-07-19,ita,191.0,Play/Guardia,ronci-nicolo
+Nicolo,Ronci,2009-07-19,ITA,191.0,Play/Guardia,ronci-nicolo
 Riccardo Aldo,Perfigli,2005-08-18,ITA,194.0,Guardia,perfigli-riccardo-aldo
 Denice,Obase,2007-06-26,ITA,201.0,Ala,obase-denice
 Giacomo,Furin,2003-11-17,ITA,205.0,Centro,furin-giacomo
@@ -60,7 +60,7 @@ Leonardo,Caramelli,2008-01-21,ITA,190.0,Guardia,caramelli-leonardo
 Edoardo,Di Emidio,1993-02-19,ITA,188.0,Play,di-emidio-edoardo
 Gabriele,Berra,2000-08-01,ITA,195.0,Guardia/Ala,berra-gabriele
 Stacy,Davis IV,1994-10-11,USA,198.0,Ala,davis-iv-stacy
-Martino,Forte,2006-03-19,Ita,191.0,Guardia/Ala,forte-martino
+Martino,Forte,2006-03-19,ITA,191.0,Guardia/Ala,forte-martino
 Michele,Munari,2005-03-03,ITA,188.0,Play/Guardia,munari-michele
 Ilija,Biorac,2004-08-01,ITA,202.0,Centro,biorac-ilija
 Toni,Perkovic,1998-04-10,CRO,191.0,Guardia,perkovic-toni
@@ -84,14 +84,14 @@ Giddy,Potts,1995-08-08,USA,188.0,Play/Guardia,potts-giddy
 Lee,Moore,1995-08-09,USA,194.0,Guardia,moore-lee
 Joseph Jonathan,Blair,2000-11-24,ITA,200.0,Guardia/Ala,blair-joseph-jonathan
 Tomas,Cavallero,1998-05-24,ARG,198.0,Guardia/Ala,cavallero-tomas
-Davide,Pittioni,2007-02-15,ita,197.0,Ala/Centro,pittioni-davide
+Davide,Pittioni,2007-02-15,ITA,197.0,Ala/Centro,pittioni-davide
 Ivan,Majcunić,1996-07-24,CRO,193.0,Guardia,majcuni%C4%87-ivan
 Tommaso,Fantoma,2003-10-23,ITA,197.0,Guardia/Ala,fantoma-tommaso
 Vittorio,Bartoli,2002-06-11,ITA,201.0,Ala,bartoli-vittorio
 Cesare,Barbon,1998-03-12,ITA,194.0,Guardia,barbon-cesare
 Salvatore,Parrillo,1992-12-02,ITA,192.0,Play/Guardia,parrillo-salvatore
-Valerio,Branchi,2024-07-26,ITA,,Play,branchi-valerio
-Adrian,Chiera,1994-12-16,ITAARG,191.0,Guardia,chiera-adrian-0
+Valerio,Branchi,,ITA,,Play,branchi-valerio
+Adrian,Chiera,1994-12-16,ITA/ARG,191.0,Guardia,chiera-adrian-0
 Lorenzo,Piccin,2002-11-18,ITA,191.0,Guardia,piccin-lorenzo
 Giorgio,Calvi,2000-01-14,ITA,204.0,Ala,calvi-giorgio
 Francesco,Mizerniuk,,,190.0,,mizerniuk-francesco
@@ -108,7 +108,7 @@ Lorenzo,Benvenuti,1995-04-29,ITA,205.0,Centro,benvenuti-lorenzo
 Niccolò,Giulietti,2001-11-26,ITA,196.0,Ala,giulietti-niccol%C3%B2
 Tommaso,Bergo,2006-11-07,ITA,180.0,Play,bergo-tommaso
 Lorenzo,Vanin,2004-06-07,ITA,210.0,Centro,vanin-lorenzo
-Simon Obinna,Anaekwe,2001-10-18,NGA,204.0,Centro,anaekwe-simon-obinna
+Simon Obinna,Anaekwe,2001-10-18,NGR,204.0,Centro,anaekwe-simon-obinna
 Alessandro,Nisi,,ITA,188.0,Guardia,nisi-alessandro
 Alberto,Cacace,1996-06-22,ITA,194.0,Guardia,cacace-alberto
 Carlos,Delfino,1982-08-29,ARG/ITA,198.0,Guardia/Ala,delfino-carlos
@@ -124,9 +124,9 @@ Emmanuel,Enihe,1998-11-29,ITA,199.0,Ala,enihe-emmanuel
 Matteo,Ferrara,1997-12-16,ITA,202.0,Ala,ferrara-matteo
 Kenneth,Viglianisi,1992-05-16,ITA,193.0,Guardia/Ala,viglianisi-kenneth
 Lisandro,Rasio,1990-12-30,ARG,198.0,Ala,rasio-lisandro
-Kristaps,Gluditis,1995-11-06,Lettonia,192.0,Guardia,gluditis-kristaps
+Kristaps,Gluditis,1995-11-06,LAT,192.0,Guardia,gluditis-kristaps
 Andrea,Calleri,2007-01-04,ITA,200.0,Ala/Centro,calleri-andrea
-Nicolò,Braccio,,ita,190.0,Guardia/Ala,braccio-nicol%C3%B2
+Nicolò,Braccio,,ITA,190.0,Guardia/Ala,braccio-nicol%C3%B2
 Giacomo,Donati,2006-02-11,ITA,198.0,Ala,donati-giacomo
 Tommaso,Rossi,1999-06-02,ITA,198.0,Guardia/Ala,rossi-tommaso
 Jose Alberto,Benites Vicente,1997-11-02,ITA,180.0,Play/Guardia,benites-vicente-jose-alberto
@@ -141,10 +141,9 @@ Dario,Samaritani,,,190.0,,samaritani-dario
 David,Gabrovsek,1994-09-18,SLO,204.0,Centro,gabrovsek-david
 Mattia,Catellani,2007-12-14,ITA,189.0,Play/Guardia,catellani-mattia
 Michael,Teghini,1992-12-25,ITA,192.0,Play,teghini-michael
-Giacomo,Dell'agnello,1994-09-30,ITA,198.0,Ala,dellagnello-giacomo-0
 Angelo Maria,Castellitto,2005-06-07,ITA,190.0,Guardia/Ala,castellitto-angelo-maria
 Alessandro,Daccò,2007-02-23,ITA,181.0,Guardia,dacc%C3%B2-alessandro
-Pietro,Reginato,2007-02-01,ita,190.0,Guardia,reginato-pietro
+Pietro,Reginato,2007-02-01,ITA,190.0,Guardia,reginato-pietro
 Alessandro,Panni,1991-12-27,ITA,185.0,Play/Guardia,panni-alessandro
 Mattia,Pavani,2004-06-12,ITA,185.0,Play/Guardia,pavani-mattia
 Pavlo,Lytvyn,2008-07-01,UKR,204.0,Ala,lytvyn-pavlo
@@ -176,7 +175,7 @@ Jarvis,Williams,1993-01-21,USA,203.0,Ala/Centro,williams-jarvis-0
 Ursulo,D’almeida,2001-11-01,BEN,200.0,Centro,d%E2%80%99almeida-ursulo
 Gerel David,Simmons,1993-06-11,USA,188.0,Guardia,simmons-gerel-david
 Cristian,Berardo,,,190.0,,berardo-cristian
-Levi,Valdo,2005-06-26,CMN,191.0,Guardia,valdo-levi
+Levi,Valdo,2005-06-26,CMR,191.0,Guardia,valdo-levi
 Mattia,Palumbo,2000-09-23,ITA,198.0,Play/Guardia,palumbo-mattia
 Francesco,Stefanelli,1995-01-21,ITA,191.0,Guardia,stefanelli-francesco
 Ousmane,Maiga,2005-02-02,MLI,199.0,Ala,maiga-ousmane
@@ -208,7 +207,7 @@ Luca,Antonietti,1994-05-28,ITA,198.0,Ala/Centro,antonietti-luca
 Giorgio,Sgobba,1992-08-04,ITA,202.0,Ala/Centro,sgobba-giorgio
 Abdel,Fall,1991-01-24,ITA,202.0,Centro,fall-abdel
 Lorenzo,Maspero,1998-04-15,ITA,184.0,Play,maspero-lorenzo
-Gabriele,Giarelli,1993-05-14,Ita,200.0,Ala/Centro,giarelli-gabriele
+Gabriele,Giarelli,1993-05-14,ITA,200.0,Ala/Centro,giarelli-gabriele
 Edoardo,Pirovano,2006-05-01,ITA,197.0,Ala,pirovano-edoardo
 Filippo,Gallo,2004-05-03,ITA,194.0,Play/Guardia,gallo-filippo
 Lorenzo,Baldasso,1995-02-02,ITA,192.0,Guardia/Ala,baldasso-lorenzo
@@ -253,7 +252,7 @@ Jacopo,Cellerini,2006-04-14,ITA,190.0,Guardia,cellerini-jacopo
 Theo,Anchisi,2005-10-10,ITA,185.0,Play,anchisi-theo
 Giulio,Candotto,2001-07-13,ITA,192.0,Guardia,candotto-giulio
 Riccardo,Dalla Cia,2007-08-21,ITA,202.0,Ala,dalla-cia-riccardo
-Santiago,Bruno,1993-05-31,ITA-ARG,188.0,Guardia,bruno-santiago
+Santiago,Bruno,1993-05-31,ITA/ARG,188.0,Guardia,bruno-santiago
 Kuot Yak Deng,Kuot,2007-07-21,SSD,202.0,Ala/Centro,kuot-kuot-yak-deng
 Simone,Angelucci,1998-06-11,ITA,198.0,Ala,angelucci-simone
 Eric,Washington,1993-06-23,USA,180.0,Play,washington-eric
@@ -261,11 +260,10 @@ Stefano,Mauro,,,190.0,,mauro-stefano
 Tommaso,Fantoni,1985-03-11,ITA,206.0,Centro,fantoni-tommaso
 Francesco,Ferraro,2005-09-06,ITA,187.0,Guardia,ferraro-francesco
 Matteo,Ambrosin,2000-09-18,ITA,203.0,Ala/Centro,ambrosin-matteo
-Matteo,Nicoli,2001-06-02,italia,193.0,Play,nicoli-matteo
+Matteo,Nicoli,2001-06-02,ITA,193.0,Play,nicoli-matteo
 Lorenzo,Querci,2001-01-17,ITA,194.0,Guardia/Ala,querci-lorenzo
 Andrea,Valentini,1998-04-19,ITA,199.0,Centro,valentini-andrea
 Andrea,Ambrosetti,1999-07-28,ITA,184.0,Play/Guardia,ambrosetti-andrea
-Krisjanis,Mazburss,2008-03-11,lat,192.0,Guardia/Ala,krisjanis-mazburss
 Todor,Radonjic,1997-04-01,MNE,197.0,Ala,radonjic-todor
 Mihajlo,Jerkovic,1999-06-21,SRB,204.0,Ala,jerkovic-mihajlo
 Marco,Torgano,1991-12-11,ITA,200.0,Guardia/Ala,torgano-marco
@@ -299,7 +297,7 @@ Luca,Conti,2000-12-20,ITA,196.0,Guardia/Ala,conti-luca
 Dimitrije,Stankovic,2006-03-20,SRB,190.0,Guardia,stankovic-dimitrije
 Matteo,Barbieri,2003-05-27,ITA,211.0,Centro,barbieri-matteo
 Angelo,Guaccio,1998-04-12,ITA,196.0,Guardia/Ala,guaccio-angelo
-Sigfredo,Casero-Ortiz,,bel,190.0,Play/Guardia,casero-ortiz-sigfredo
+Sigfredo,Casero-Ortiz,,BEL,190.0,Play/Guardia,casero-ortiz-sigfredo
 Matteo,Berti,1998-08-18,ITA,212.0,Centro,berti-matteo
 Giulio,Casagrande,1993-09-15,ITA,196.0,Ala,casagrande-giulio
 Lorenzo,Restelli,1996-03-18,ITA,197.0,Ala,restelli-lorenzo
@@ -309,8 +307,8 @@ Pietro,Ciocca,,,190.0,,ciocca-pietro
 Riccardo,Pisano,2005-04-11,ITA,192.0,Play,pisano-riccardo
 Diego,Terenzi,1995-11-23,ITA,193.0,Guardia,terenzi-diego
 Francesco,Marcucci,2005-12-17,ITA,203.0,Ala/Centro,marcucci-francesco
-Massimiliano,Obljubech,2005-02-28,ita,187.0,Play/Guardia,obljubech-massimiliano
-Federico,Ferrucci Morandi,,ita,190.0,,ferrucci-morandi%C2%A0-federico
+Massimiliano,Obljubech,2005-02-28,ITA,187.0,Play/Guardia,obljubech-massimiliano
+Federico,Ferrucci Morandi,,ITA,190.0,,ferrucci-morandi%C2%A0-federico
 Carmine,Berardi,2009-01-17,ITA,190.0,Guardia/Ala,berardi-carmine
 Giovanni,Pini,1992-07-25,ITA,205.0,Centro,pini-giovanni
 Andrea,Iannotta,2007-09-13,ITA,185.0,Play/Guardia,iannotta-andrea
@@ -350,10 +348,10 @@ Carloluca,Malattia,,,190.0,,malattia-carloluca
 Marco,Contento,1991-10-28,ITA,185.0,Guardia,contento-marco
 Jacopo,Liamin,,,190.0,,liamin-jacopo
 Manuel,Di Meco,1997-03-22,ITA,201.0,Ala/Centro,di-meco-manuel
-Andrew David,Smith,1992-12-14,LVA,190.0,Ala,smith-andrew-david
+Andrew David,Smith,1992-12-14,LAT,190.0,Ala,smith-andrew-david
 Pietro,Lasagni,2007-06-22,ITA,196.0,Ala,lasagni-pietro
 Edoardo,Tiberti,1997-05-09,ITA,202.0,Centro,tiberti-edoardo
-Enzo Damian,Cena,1992-01-12,ITA-ARG,200.0,Ala,cena-enzo-damian
+Enzo Damian,Cena,1992-01-12,ITA/ARG,200.0,Ala,cena-enzo-damian
 Davide,Ligabue,2007-04-11,ITA,194.0,Ala,ligabue-davide
 Christian,Ranucci,2005-03-22,ITA,,Play,ranucci-christian
 Mubashar,Ali',1997-02-28,FIN,211.0,Centro,ali-mubashar
@@ -390,7 +388,7 @@ Maurizio,Spadon,2005-10-22,ITA,190.0,Guardia,spadon-maurizio
 Zach,Copeland,1997-06-21,USA,193.0,Guardia,copeland-zach
 Edoardo,Bottelli,2005-06-27,ITA,191.0,Play/Guardia,bottelli-edoardo
 Giacomo,Filippini,1991-09-25,ITA,204.0,Centro,filippini-giacomo
-Jacques,Egbende,2025-08-31,CON,200.0,Centro,egbende-jacques
+Jacques,Egbende,,CON,200.0,Centro,egbende-jacques
 Filippo,Banella,2007-08-12,ITA,203.0,Ala/Centro,banella-filippo
 Guglielmo,Sodero,1993-12-09,ITA,191.0,Play/Guardia,sodero-guglielmo
 Loris,Gozo,2002-02-10,ITA,193.0,Ala,gozo-loris
@@ -398,7 +396,7 @@ Giovanni,Ianelli,2000-08-03,ITA,188.0,Guardia,ianelli-giovanni
 Cheick Yaya,Sissoko,2007-10-10,MLI,211.0,Ala/Centro,sissoko-cheick-yaya
 Giovanni,Vildera,1995-03-04,ITA,205.0,Centro,vildera-giovanni
 Danilo,Petrovic,1999-05-10,ITA,203.0,Ala,petrovic-danilo
-Gabriele,Calò,2007-01-25,ita,190.0,Play,cal%C3%B2-gabriele
+Gabriele,Calò,2007-01-25,ITA,190.0,Play,cal%C3%B2-gabriele
 Riccardo,Marcucci,,,190.0,,marcucci-riccardo
 Matteo,Rinaldin,2006-05-12,ITA,183.0,Play/Guardia,rinaldin-matteo
 Giovanni,Tumino,2007-07-05,ITA,188.0,Play,tumino-giovanni
@@ -419,7 +417,6 @@ Matija,Jovovic,1999-07-22,ITA,198.0,Guardia/Ala,jovovic-matija
 Matteo,Morelli,2005-06-25,ITA,201.0,Ala,morelli-matteo
 Alex,Cosma,2008-02-18,ITA,198.0,Centro,cosma-alex
 Lorenzo,Galmarini,1995-06-15,ITA,200.0,Centro,galmarini-lorenzo
-Manuel,Di Meco,1997-03-22,ITA,201.0,Ala/Centro,dimeco-manuel
 Stefano,Ratti,2006-01-01,ITA,185.0,Play,ratti-stefano
 Pier Adriele,Zoffoli,2002-11-16,ITA,,Play,zoffoli-pier-adriele
 Edoardo,Zovico,2006-12-20,ITA,190.0,Ala,zovico-edoardo
@@ -464,7 +461,6 @@ Matteo,Fantinelli,1993-11-24,ITA,195.0,Play,fantinelli-matteo
 Marco,Ammannato,1988-02-01,ITA,202.0,Centro,ammannato-marco
 Micheal,Anumba,1999-09-06,ITA,192.0,Guardia/Ala,anumba-micheal
 Lorenzo,Bucarelli,1998-03-06,ITA,198.0,Guardia,bucarelli-lorenzo
-Franesco,Forti,1994-09-19,ITA,180.0,Play,forti-franesco
 Giacomo,Siberna,1996-01-08,ITA,192.0,Guardia/Ala,siberna-giacomo
 Tommaso,Molteni,1999-07-22,ITA,188.0,Play,molteni-tommaso
 Moustapha,Ndiaye,2006-12-30,SEN,205.0,Centro,ndiaye-moustapha
@@ -482,7 +478,7 @@ Fabio,Bugatti,1998-10-31,ITA,200.0,Ala,bugatti-fabio
 Jordan,Harris,1997-10-09,USA,194.0,Guardia,harris-jordan
 Nemanja,Dincic,1998-05-20,SRB,202.0,Ala/Centro,dincic-nemanja
 Jeremy,Berluti,,,190.0,,berluti-jeremy
-Destiny,Osagie,2006-12-04,ITA/NGA,200.0,Ala,osagie-destiny
+Destiny,Osagie,2006-12-04,ITA/NGR,200.0,Ala,osagie-destiny
 Gianmarco,Arletti,2002-12-25,ITA,198.0,Guardia,arletti-gianmarco
 Skylar,Spencer,1994-07-11,USA,206.0,Centro,spencer-skylar
 Filippo,Di Zanni,,,190.0,,di-zanni-filippo
@@ -513,7 +509,7 @@ Andrea,Quinti,2001-07-30,ITA,202.0,Centro,quinti-andrea
 Eduards,Hazners,1997-12-28,LAT,192.0,Guardia,hazners-eduards
 Riccardo,Bolpin,1997-02-09,ITA,197.0,Guardia,bolpin-riccardo
 Donato,Palmiero,,,190.0,,palmiero-donato
-Filippo,Lucchini,2007-08-01,Ita,201.0,Ala/Centro,lucchini-filippo
+Filippo,Lucchini,2007-08-01,ITA,201.0,Ala/Centro,lucchini-filippo
 Giovanni,Giansante,2006-11-22,ITA,185.0,Guardia,giansante-giovanni
 Jacopo,Madia,2007-07-12,ITA,178.0,Play,madia-jacopo
 Andrea,Tassinari,1996-06-12,ITA,188.0,Play,tassinari-andrea
@@ -531,10 +527,10 @@ Ygor,Biordi,1996-01-17,SMR,204.0,Ala,biordi-ygor
 Nicola,Fantoma,2006-07-20,ITA,190.0,Guardia/Ala,fantoma-nicola
 Anthony,Hickey,1992-11-22,USA,180.0,Play,hickey-anthony
 Keshawn,Curry,1998-12-27,USA,193.0,Guardia/Ala,curry-keshawn
-Seraphin,Kadjividi Boussounka,2003-04-03,CAM,213.0,Centro,kadjividi-boussounka-seraphin
+Seraphin,Kadjividi Boussounka,2003-04-03,CMR,213.0,Centro,kadjividi-boussounka-seraphin
 Giacomo,Leardini,1999-12-07,ITA,200.0,Ala,leardini-giacomo
 Niccolo,Martinoni,1989-05-10,ITA,203.0,Ala/Centro,martinoni-niccolo
-Kārlis,Šilke-Žunda,1997-07-25,LVA,195.0,Guardia/Ala,%C5%A1ilke-%C5%BEunda-k%C4%81rlis
+Kārlis,Šilke-Žunda,1997-07-25,LAT,195.0,Guardia/Ala,%C5%A1ilke-%C5%BEunda-k%C4%81rlis
 Leonardo,Mongelli,2006-08-06,ITA,194.0,Guardia,mongelli-leonardo
 Joel,Mantynen,2002-01-13,FIN,196.0,Ala,mantynen-joel
 Pietro,Bolzoni,2008-12-28,ITA,190.0,Ala,bolzoni-pietro
@@ -552,7 +548,7 @@ Giacomo,Brizzi,2006-01-30,ITA,202.0,Ala,brizzi-giacomo
 Nicholas,Carr,2004-11-10,ITA,204.0,Ala/Centro,carr-nicholas
 Mauro,Zacchigna,2004-06-16,ITA,202.0,Ala,zacchigna-mauro
 Alexander,Falomi,,,190.0,,falomi-alexander
-Ife,Ajayi,1996-12-27,NIG/USA,200.0,Ala,ajayi-ife
+Ife,Ajayi,1996-12-27,NGR/USA,200.0,Ala,ajayi-ife
 Matteo,Bogliardi,2002-03-17,ITA,189.0,Play,bogliardi-matteo
 Gabriele,Spizzichini,1992-12-16,ITA,196.0,Play/Guardia,spizzichini-gabriele
 Jacopo,Lucarelli,1996-07-14,ITA,197.0,Guardia/Ala,lucarelli-jacopo
@@ -571,7 +567,7 @@ Nilo,Genti,2008-07-22,ITA,190.0,Play/Guardia,genti-nilo
 Michele,Peroni,1994-05-28,ITA,190.0,Guardia/Ala,peroni-michele
 Macio,Teague,1997-06-11,USA,193.0,Guardia,teague-macio
 Marco,Spanghero,1991-08-31,ITA,185.0,Play,spanghero-marco
-Gianluca,Frattoni,2004-04-07,Ita/Arg,190.0,Play,frattoni-gianluca
+Gianluca,Frattoni,2004-04-07,ITA/ARG,190.0,Play,frattoni-gianluca
 Ricards,Klanskis,2003-10-02,LAT,202.0,Centro,klanskis-ricards
 Wayne,Stewart Jr,1996-06-01,USA,201.0,Ala,stewart-jr-wayne
 Joseph,Paulinus,2002-10-29,NGR,185.0,Guardia,paulinus-joseph
@@ -584,7 +580,7 @@ Scott,Ulaneo,1998-06-27,ITA,208.0,Centro,ulaneo-scott
 Shawn,Dawson,1993-12-12,ISR,198.0,Guardia/Ala,dawson-shawn
 Vincenzo,Taddeo,2000-01-15,ITA,191.0,Play/Guardia,taddeo-vincenzo
 Lorenzo,Bonfiglioli,2005-06-25,ITA,185.0,Play/Guardia,bonfiglioli-lorenzo
-Filippo,Gaeta,2009-05-26,ITALIA,190.0,Play/Guardia,gaeta-filippo
+Filippo,Gaeta,2009-05-26,ITA,190.0,Play/Guardia,gaeta-filippo
 Peter,Devetta,,,190.0,,devetta-peter
 Matteo,Montano,1992-02-18,ITA,189.0,Play/Guardia,montano-matteo
 Davide,Marchini,1995-05-08,ITA,188.0,Play/Guardia,marchini-davide
@@ -598,7 +594,7 @@ Dario,Zucca,1996-02-17,ITA,204.0,Ala/Centro,zucca-dario
 Emilis,Bartninkas,2004-05-24,LTU,208.0,Ala/Centro,bartninkas-emilis
 Emir,Sabic,1996-09-12,CRO,185.0,Play,sabic-emir
 Paolo,Bandini,2004-01-03,ITA,186.0,Play/Guardia,bandini-paolo
-Benoit Paul Victor,Ndione,2006-01-28,sen,183.0,Play/Guardia,ndione-benoit-paul-victor
+Benoit Paul Victor,Ndione,2006-01-28,SEN,183.0,Play/Guardia,ndione-benoit-paul-victor
 Simas,Jasaitis,1982-03-26,LTU,202.0,Ala,jasaitis-simas
 Riccardo,Tavernelli,1991-03-16,ITA,188.0,Play,tavernelli-riccardo
 Sebastiano,Colombo,2007-07-26,ITA,187.0,Guardia,colombo-sebastiano
@@ -669,11 +665,11 @@ Topias,Palmi,1994-08-26,FIN,194.0,Guardia,palmi-topias
 Matteo,Reginaldi,2006-08-20,ITA,181.0,Play,reginaldi-matteo
 Abdramane,Haidara,2005-01-08,MLI,205.0,Ala,haidara-abdramane
 Andris,Misters,1992-04-08,LAT,194.0,Ala,misters-andris
-Avery,Woodson,0093-12-15,USA,188.0,Play/Guardia,woodson-avery
-Tyler,Cartaino,0096-09-10,USA,198.0,Ala,cartaino-tyler
+Avery,Woodson,1993-12-15,USA,188.0,Play/Guardia,woodson-avery
+Tyler,Cartaino,1996-09-10,USA,198.0,Ala,cartaino-tyler
 Andrea,Quarisa,1992-04-19,ITA,204.0,Centro,quarisa-andrea
 Marko,Milovanovic,2002-01-18,MKD,196.0,Ala,milovanovic-marko
-David Jack,Bonomi,2009-01-01,ita,189.0,Play/Guardia,bonomi-david-jack
+David Jack,Bonomi,2009-01-01,ITA,189.0,Play/Guardia,bonomi-david-jack
 Antonio,Lorenzetti,1995-06-30,ITA,196.0,Ala/Centro,lorenzetti-antonio
 Alessio,Zanier,2007-09-04,ITA,178.0,Play,zanier-alessio
 Davide,Tresso,2000-07-14,ITA,193.0,Guardia/Ala,tresso-davide
@@ -691,7 +687,7 @@ Damion,Rosser,1999-08-24,USA,193.0,Play/Guardia,rosser-damion
 Lorenzo,Pollini,2006-06-13,ITA,185.0,Play,pollini-lorenzo
 Tommaso,Raspino,1989-04-11,ITA,198.0,Guardia/Ala,raspino-tommaso
 Matteo,Galassi,1998-07-04,ITA,185.0,Guardia,galassi-matteo
-Matteo,Natali,,ita,190.0,,natali-matteo
+Matteo,Natali,,ITA,190.0,,natali-matteo
 Andrea,Aromando,2007-01-16,ITA,187.0,Ala,aromando-andrea
 Dalton,Pepper,1990-05-24,USA/ITA,197.0,Guardia/Ala,pepper-dalton
 Albano,Chiarastella,1985-10-21,ITA/ARG,195.0,Ala,chiarastella-albano
@@ -725,18 +721,18 @@ Charles,Atamah,2006-07-02,ITA,202.0,Centro,atamah-charles
 Marco,Restelli,2004-03-23,ITA,191.0,Guardia,restelli-marco
 Alfonso,Zampogna,2000-11-02,ITA,186.0,Play,zampogna-alfonso
 Jacopo,Aglio,1995-07-24,ITA,196.0,Ala/Centro,aglio-jacopo
-Lorenzo,Vannini,2005-01-01,Ita,185.0,Guardia,vannini-lorenzo
+Lorenzo,Vannini,2005-01-01,ITA,185.0,Guardia,vannini-lorenzo
 Francesco,D'Offizi,2003-12-06,ITA,199.0,Guardia,doffizi-francesco
 Tommaso,Pillastrini,2007-03-11,ITA,190.0,Guardia,pillastrini-tommaso
 Tajion,Jones,1999-02-11,USA,196.0,Guardia/Ala,jones-tajion
 Davide,Reati,1988-09-16,ITA,194.0,Guardia/Ala,reati-davide
 Antanas,Udras,1992-06-01,LTU,204.0,Centro,udras-antanas
 Francesco,Spinelli,2005-09-29,ITA,197.0,Play/Guardia,spinelli-francesco
-Lamine,Camara Mahamed,2004-07-29,COG,213.0,Centro,camara-mahamed-lamine
+Lamine,Camara Mahamed,2004-07-29,CGO,213.0,Centro,camara-mahamed-lamine
 Simone,Errede,2006-05-11,ITA,198.0,Ala,errede-simone
 Daniele,Merletto,1993-05-28,ITA,175.0,Play,merletto-daniele
 Giacomo,Granieri,2006-01-01,ITA,183.0,Play/Guardia,granieri-giacomo
-Matteo,Valente,,ita,190.0,,valente-matteo
+Matteo,Valente,,ITA,190.0,,valente-matteo
 Pietro,Simonetti,2006-08-05,ITA,195.0,Guardia/Ala,simonetti-pietro
 Valentin,Georgescu,2008-11-17,ROU,185.0,Play/Guardia,georgescu-valentin
 Lorenzo,Ambrosin,1997-10-07,ITA,195.0,Guardia,ambrosin-lorenzo
@@ -744,7 +740,7 @@ Nicola,Savoldelli,1997-05-15,ITA,183.0,Play,savoldelli-nicola
 Giovanni,Biccardi,2007-01-01,ITA,190.0,Guardia/Ala,biccardi-giovanni
 Eugenio,Rota,1999-08-13,ITA,178.0,Play,rota-eugenio
 Lorenzo,Mele,2005-07-06,ITA,187.0,Play,mele-lorenzo
-Massimo,Fiodo,2006-08-28,ita,191.0,Guardia/Ala,fiodo-massimo
+Massimo,Fiodo,2006-08-28,ITA,191.0,Guardia/Ala,fiodo-massimo
 Davide,Pittana,2007-04-18,ITA,193.0,Play,pittana-davide
 Milo,Galli,1995-06-23,ITA,197.0,Guardia/Ala,galli-milo
 Matteo,Antonelli,2006-01-31,ITA,190.0,Play,antonelli-matteo
@@ -756,7 +752,7 @@ Antonello,Ricci,1992-04-12,ITA,190.0,Guardia,ricci-antonello
 Lorenzo,Garavini,2005-10-06,ITA,190.0,Ala,garavini-lorenzo
 Deshawn,Stephens,1989-10-09,USA,203.0,Centro,stephens-deshawn
 Hristo,Zahariev,1990-10-27,BUL,196.0,,zahariev-hristo
-Alessandro,Festa,2025-09-01,ITA,180.0,Guardia,festa-alessandro
+Alessandro,Festa,,ITA,180.0,Guardia,festa-alessandro
 Simone,Pepe,1993-03-29,ITA,184.0,Guardia,pepe-simone
 Matteo,Palermo,1991-10-22,ITA,190.0,Play/Guardia,palermo-matteo
 Gianmarco,Fiorillo,2005-02-10,ITA,188.0,Play/Guardia,fiorillo-gianmarco
@@ -772,7 +768,7 @@ Mourtada,Gaye Serigne,2004-08-17,ITA,195.0,Guardia/Ala,gaye-serigne-mourtada
 Matteo,Todisco,2005-02-14,ITA,205.0,Ala/Centro,todisco-matteo
 Matteo,Pollone,1999-09-27,ITA,192.0,Guardia/Ala,pollone-matteo
 Joaquin,Sarmiento,2007-01-18,ARG,201.0,Ala/Centro,sarmiento-joaquin
-Alberto,Stefani,2003-09-06,Ita,204.0,Ala/Centro,stefani-alberto
+Alberto,Stefani,2003-09-06,ITA,204.0,Ala/Centro,stefani-alberto
 Samuele,Miccoli,2006-01-14,ITA,190.0,Guardia,miccoli-samuele
 Alexander,Cicchetti,1998-04-18,ITA,200.0,Ala,cicchetti-alexander-0
 Andrea,Sipala,,ITA,198.0,Ala/Centro,sipala-andrea
@@ -780,7 +776,7 @@ Guglielmo,Ottoni,2006-06-03,ITA,192.0,Guardia,ottoni-guglielmo
 Nicolò,Bertocco,1995-09-16,ITA,198.0,Guardia/Ala,bertocco-nicol%C3%B2
 Stefano,Masciadri,1989-03-12,ITA,200.0,Ala,masciadri-stefano
 Armando,Kazadi,2007-08-08,ITA,187.0,Play,kazadi-armando
-Niccolò,Pellicano,2002-03-02,ita,182.0,Play,pellicano-niccol%C3%B2
+Niccolò,Pellicano,2002-03-02,ITA,182.0,Play,pellicano-niccol%C3%B2
 Ivan,Almeida,1989-05-10,CPV,199.0,Ala,almeida-ivan
 Victor,Sulina,2004-09-27,ITA,180.0,Play,sulina-victor
 Simone,Bonfè,2005-10-17,ITA,190.0,Play,bonf%C3%A8-simone
@@ -791,14 +787,14 @@ Luca,Albique,1997-01-21,ITA,199.0,Centro,albique-luca
 Marco,Menconi,2002-08-08,ITA,188.0,Play/Guardia,menconi-marco
 Davide,Pascolo,1990-12-14,ITA,201.0,Ala,pascolo-davide
 Pietro,Callegari,2008-11-17,ITA,192.0,Ala,callegari-pietro
-Flavio,Talone,2010-02-23,ita,190.0,Guardia/Ala,talone-flavio
+Flavio,Talone,2010-02-23,ITA,190.0,Guardia/Ala,talone-flavio
 Vittorio,Moltrasio,2003-06-30,ITA,186.0,Guardia,moltrasio-vittorio
 Matteo,Picarelli,2001-05-26,ITA/SUI,188.0,Guardia,picarelli-matteo
 Ludovico,Trevisan,2005-01-01,ITA,195.0,Play,trevisan-ludovico
 Kevin,Brigato,1998-12-03,ITA,196.0,Guardia/Ala,brigato-kevin
 Luigi,Dioli,2006-04-26,ITA,190.0,Play/Guardia,dioli-luigi
 Luca,Brambilla,1996-05-13,ITA,194.0,Ala,brambilla-luca
-Stefano,Conte,2005-10-22,ita,188.0,Play/Guardia,conte-stefano
+Stefano,Conte,2005-10-22,ITA,188.0,Play/Guardia,conte-stefano
 Sebastian,Redini,2005-01-16,ITA,200.0,Centro,redini-sebastian
 Luca,Tozzi,1999-10-09,ITA,200.0,Ala,tozzi-luca
 Ennio,Leonzio,1994-09-14,ITA,191.0,Guardia,leonzio-ennio
@@ -855,9 +851,9 @@ Celis,Taflaj,1998-03-12,ALB,201.0,Guardia/Ala,taflaj-celis
 Alessandro,Chapelli,2004-04-18,ITA,191.0,Guardia,chapelli-alessandro
 Andrea,Amato,1994-03-12,ITA,189.0,Play,amato-andrea
 Gianmarco,Fiusco,2003-03-03,ITA,198.0,Guardia,fiusco-gianmarco
-Federico,Stoch,2006-06-13,ita,190.0,Guardia,stoch-federico
+Federico,Stoch,2006-06-13,ITA,190.0,Guardia,stoch-federico
 Nejc,Zupan,1996-04-12,SLO,201.0,Ala,zupan-nejc
-Success,Eruke,2006-09-19,ITA-NIG,202.0,Centro,eruke-success
+Success,Eruke,2006-09-19,ITA/NGR,202.0,Centro,eruke-success
 Pietro,Aradori,1988-12-09,ITA,194.0,Guardia/Ala,aradori-pietro
 Roberto,Marulli,1991-09-21,ITA,190.0,Play/Guardia,marulli-roberto
 Federico,Burini,1993-07-12,ITA,190.0,Play,burini-federico
@@ -866,7 +862,7 @@ Michele,D'Ambrosio Angelillo,1998-07-21,ITA,212.0,Ala/Centro,dambrosio-angelillo
 Mattia,Venucci,1990-10-31,ITA,184.0,Play,venucci-mattia
 Federico,Zampini,1999-06-27,ITA,191.0,Play/Guardia,zampini-federico
 Luca,Migone,2006-10-02,ITA,182.0,Play,migone-luca
-Almami Barry,Sylla,2005-08-23,MALI,208.0,Ala/Centro,sylla-almami-barry
+Almami Barry,Sylla,2005-08-23,MLI,208.0,Ala/Centro,sylla-almami-barry
 Simone,Rocchi,2000-07-21,ITA,185.0,Guardia,rocchi-simone
 Tommaso,Lanzi,2002-02-19,ITA,183.0,Play,lanzi-tommaso
 Lorenzo,Penna,1998-01-21,ITA,180.0,Play,penna-lorenzo
@@ -874,7 +870,7 @@ Gabriele,Calvio,,,190.0,,calvio-gabriele
 Lorenzo,Calbini,2002-12-20,ITA,192.0,Play/Guardia,calbini-lorenzo
 Joel,Fokou,2000-02-03,CMR,202.0,Ala/Centro,fokou-joel
 Lionel,Abega,2004-02-04,ITA,190.0,Guardia,abega-lionel
-Youssouf,Kamate,2006-02-02,ML,208.0,Centro,kamate-youssouf
+Youssouf,Kamate,2006-02-02,MLI,208.0,Centro,kamate-youssouf
 Matteo,Montanile,,,190.0,,montanile-matteo
 Filippo,Becchetti,2006-04-14,ITA,183.0,Ala,becchetti-filippo
 Nazzareno,Italiano,1991-07-15,ITA,198.0,Ala,italiano-nazzareno
@@ -923,12 +919,12 @@ David,Cornis,,,190.0,,cornis-david
 Alleia Ivan,Mobio,2004-10-12,ITA,186.0,Guardia,mobio-alleia-ivan
 Luca,Malatesta,,ITA,186.0,Guardia,malatesta-luca
 Mahamadou,Diarra,2005-11-17,MLI,206.0,Ala/Centro,diarra-mahamadou
-Mattia,Viganò,,ita,195.0,Ala,vigan%C3%B2-mattia
+Mattia,Viganò,,ITA,195.0,Ala,vigan%C3%B2-mattia
 Alvise,Sarto,2000-04-13,ITA,200.0,Guardia/Ala,sarto-alvise
 Filippo,Baldi Rossi,1991-10-26,ITA,208.0,Ala,baldi-rossi-filippo
 Samuele,Solimeno,2005-11-23,ITA,205.0,Centro,solimeno-samuele
 Karvel,Anderson,1991-06-03,USA,188.0,Guardia,anderson-karvel
-Mattia,Ruggeri,2009-04-11,ita,202.0,,ruggeri-mattia
+Mattia,Ruggeri,2009-04-11,ITA,202.0,,ruggeri-mattia
 Matteo,Tarozzi,2006-09-12,ITA,198.0,Guardia/Ala,tarozzi-matteo
 Valerio,Longo,2004-03-11,ITA,203.0,Ala/Centro,longo-valerio
 Daniele,Palombo,2006-05-22,ITA,190.0,Guardia,palombo-daniele
@@ -989,7 +985,7 @@ Giacomo,Naccari,2005-03-29,ITA,183.0,Play,naccari-giacomo
 Elhadji,Fainke,2005-04-12,MLI,202.0,Centro,fainke-elhadji
 Federico,Grani,2003-05-20,ITA,207.0,Ala/Centro,grani-federico
 Riccardo,Casella,2006-11-07,ITA,183.0,Play,casella-riccardo
-Rei,Pullazi,1993-10-03,alb,198.0,Ala,pullazi-rei
+Rei,Pullazi,1993-10-03,ALB,198.0,Ala,pullazi-rei
 Mattia,Pacitto,2007-01-01,ITA,190.0,Play/Guardia,pacitto-mattia
 Gerald,Robinson,1989-02-10,USA,185.0,Play/Guardia,robinson-gerald
 Luca,Codeluppi,2005-04-09,ITA,190.0,Guardia,codeluppi-luca
@@ -1014,7 +1010,7 @@ Nicolò,Castellino,2002-03-07,ITA,190.0,Guardia,castellino-nicol%C3%B2
 Donte Huron,Thomas,1996-05-06,USA,201.0,Ala/Centro,thomas-donte-huron
 Tomas,Zanzottera,1993-02-08,ARG,192.0,Guardia,zanzottera-tomas
 Tautvydas,Kupstas,2000-02-14,LTU,192.0,Guardia,kupstas-tautvydas
-Matteo,Agostini,1999-01-16,ita,178.0,,agostini-matteo
+Matteo,Agostini,1999-01-16,ITA,178.0,,agostini-matteo
 Nikola,Nonkovic,2002-09-15,ITA,201.0,Ala,nonkovic-nikola
 Deshawn,Freeman,1994-03-15,USA,203.0,Centro,freeman-deshawn
 Francesco,Gnecchi,1999-11-13,ITA,194.0,Guardia/Ala,gnecchi-francesco
@@ -1032,22 +1028,21 @@ Bara,Abdoul razak,2007-01-01,ITA,180.0,Play/Guardia,abdoul%C2%A0razak-bara
 Alessio,Mazzuoccolo,2007-09-23,ITA,196.0,Ala,mazzuoccolo-alessio
 Bernardo,Musso,1986-04-17,ITA/ARG,193.0,Guardia,musso-bernardo
 Pietro,Sara,,,190.0,,sara-pietro
-Jacopo,Attanasi,2006-05-10,Ita,190.0,Guardia/Ala,attanasi-jacopo
+Jacopo,Attanasi,2006-05-10,ITA,190.0,Guardia/Ala,attanasi-jacopo
 Maks,KlanjŠČek,1999-12-15,SLO,194.0,Guardia,klanjscek-maks
 Valentino,Cerri,2007-05-19,ITA,194.0,Guardia,cerri-valentino
 Pio,Ruggiero,2004-08-11,ITA,208.0,Centro,ruggiero-pio
 Mattia,Fianco,2007-01-03,ITA,183.0,Play,fianco-mattia
-Federico,Natale,2006-12-02,ita,198.0,Ala/Centro,natale-federico
+Federico,Natale,2006-12-02,ITA,198.0,Ala/Centro,natale-federico
 Nicholas,Errica,2005-06-10,ITA,185.0,Play/Guardia,errica-nicholas
 Aleksa,Nikolic,1999-05-03,SRB/ITA,205.0,Ala,nikolic-aleksa
 Nicola,Berdini,2003-12-04,ITA,185.0,Play,berdini-nicola
 Isiah,Brown,1997-09-04,USA,188.0,Guardia,brown-isiah
-Jakub,Wojciechowksi,1990-01-09,POL/ITA,214.0,Centro,wojciechowksi-jakub
 Matteo,Corliano',,,190.0,,corliano-matteo
 Gabriele,Pellegrini,2002-11-26,ITA,200.0,Guardia/Ala,pellegrini-gabriele
 Matteo,Aminti,2005-07-03,ITA,197.0,Ala,aminti-matteo
 Filippo,Rossi,1997-06-29,ITA,193.0,Play,rossi-filippo-1
-Krisjanis,Mazburss,2008-03-11,lat,192.0,Guardia/Ala,mazburss-krisjanis
+Krisjanis,Mazburss,2008-03-11,LAT,192.0,Guardia/Ala,mazburss-krisjanis
 Matteo,Stuerdo,2008-01-11,ITA,194.0,Ala,stuerdo-matteo
 Jacopo,Balanzoni,1993-10-01,ITA,205.0,Centro,balanzoni-jacopo
 Fabio,Valentini,1999-08-25,ITA,185.0,Play,valentini-fabio
