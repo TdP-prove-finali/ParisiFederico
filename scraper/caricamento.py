@@ -168,7 +168,6 @@ def caricaStatistiche(statistiche, idGiocatori, idPartecipazioni):
                                riga["assist"], riga["palle_recuperate"], riga["palle_perse"],
                                riga["stoppate"], riga["stoppate_subite"],
                                riga["falli"], riga["falli_subiti"], riga["valutazione"]))
-
     conn.commit()
     cursor.close()
     conn.close()
