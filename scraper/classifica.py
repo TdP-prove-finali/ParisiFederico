@@ -28,11 +28,12 @@ def leggiClassifica(percorsoFile, girone):
 
 
 if __name__ == "__main__":
-    nomiFile = ["classificaA2_2526.html", "classificaA2_2425.html",
-                "classificaB_2425_GironeA.html", "classificaB_2425_GironeB.html"]
+    fileProva = [("classificaA2_2526.html", None), ("classificaA2_2425.html", None),
+                 ("classificaB_2526_GironeA.html", "A"), ("classificaB_2526_GironeB.html", "B"),
+                 ("classificaB_2425_GironeA.html", "A"), ("classificaB_2425_GironeB.html", "B")]
 
-    for nomeFile in nomiFile:
-        squadre = leggiClassifica("pagine/" + nomeFile, None)
-        print(f"{nomeFile}: {len(squadre)} squadre")
+    for nomeFile, girone in fileProva:
+        squadre = leggiClassifica("pagine/" + nomeFile, girone)
+        print(f"{nomeFile} (girone {girone}): {len(squadre)} squadre")
         for squadra in squadre:
             print(f"{squadra['posizione']} {squadra['nome']} V: {squadra['vittorie']} P: {squadra['sconfitte']}")
