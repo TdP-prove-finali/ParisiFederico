@@ -21,3 +21,16 @@ class Giocatore:
 
     def __str__(self):
         return f"{self.cognome} {self.nome}"
+
+    def getEta(self):
+        if self.data_nascita is None:
+            return None
+        oggi = date.today()
+        eta = oggi.year - self.data_nascita.year
+        if oggi.month < self.data_nascita.month:
+            eta = eta - 1
+        elif oggi.month == self.data_nascita.month and oggi.day < self.data_nascita.day:
+            eta = eta - 1
+        return eta
+
+

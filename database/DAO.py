@@ -2,7 +2,7 @@ from database.DB_connect import DBConnect
 from model.giocatore import Giocatore
 from model.stagione import Stagione
 from model.campionato import Campionato
-from model.statisticaStagionale import StatisticaStagionale
+from model.totaliGiocatore import TotaliGiocatore
 
 
 class DAO():
@@ -97,7 +97,30 @@ class DAO():
             # SUM restituisce numeri decimali: li trasformo in interi
             for chiave in row:
                 row[chiave] = int(row[chiave])
-            result.append(StatisticaStagionale(**row))
+            result.append(TotaliGiocatore(**row))
+
+        cursor.close()
+        conn.close()
+        return result
+
+    @staticmethod
+    def getSquadreGiocatore(idGiocatore, idStagione, idCampionato):
+        conn = DBConnect.get_connection()
+
+        result = []
+
+        cursor = conn.cursor(dictionary=True)
+        query = """SELECT p.nome, ss.partite, ss.punti
+                   FROM statistica_stagionale ss, partecipazione_squadra p
+                   WHERE ss.id_partecipazione = p.id_partecipazione
+                   AND ss.id_giocatore = %s
+                   AND p.id_stagione = %s
+                   AND p.id_campionato = %s"""
+
+        cursor.execute(query, (idGiocatore, idStagione, idCampionato))
+
+        for row in cursor:
+            result.append(row)
 
         cursor.close()
         conn.close()
