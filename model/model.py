@@ -349,3 +349,9 @@ class Model:
         specialita = self.getSpecialita(giocatore)
         self._listaDesideri[giocatore] = (self._stagione, self._campionato, stat, specialita)
         return self._stagione, self._campionato, len(self._listaDesideri)
+
+    def getListaDesideri(self):
+        return self._listaDesideri
+
+    def rimuoviLista(self, giocatore):
+        del self._listaDesideri[giocatore]

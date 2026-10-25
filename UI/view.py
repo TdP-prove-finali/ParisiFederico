@@ -73,11 +73,20 @@ class View(ft.UserControl):
                                      self.txtResultsGiocatore],
                                     spacing=20)
 
+
+        # scheda lista e simulatore
+        self.txtResultsLista = ft.ListView(expand=1, spacing=10, padding=20)
+        self._controller.mostraLista()
+
+        schedaLista = ft.Column([ft.Container(height=10), self.txtResultsLista],
+                                spacing=20)
+
         # schede
         self._tabs = ft.Tabs(selected_index=0,
-                             tabs=[ft.Tab(text="Giocatore", content=schedaGiocatore)],
+                             tabs=[ft.Tab(text="Giocatore", content=schedaGiocatore),
+                                   ft.Tab(text="Lista e simulatore", content=schedaLista)],
                              expand=1,
-                             tab_alignment= ft.TabAlignment.CENTER)
+                             tab_alignment=ft.TabAlignment.CENTER)
 
         self._page.add(self._title, self._rowDati, self._txtMessaggio, self._tabs)
         self._page.update()
@@ -305,6 +314,75 @@ class View(ft.UserControl):
                                                        width=larghezza,
                                                        alignment=ft.alignment.center)))
         return riga
+
+    def mostraListaDesideri(self, listaDesideri):
+        if len(listaDesideri) == 0:
+            testo = "Nessun giocatore nella lista: si aggiungono dalla scheda Giocatore"
+        else:
+            testo = f"Giocatori nella lista: {len(listaDesideri)}"
+
+        contenuto = [ft.Text("Lista dei desideri", weight=ft.FontWeight.BOLD),
+                     ft.Text(testo)]
+        if len(listaDesideri) > 0:
+            contenuto.append(self.creaTabellaLista(listaDesideri))
+
+        riquadroLista = ft.Container(content=ft.Column(contenuto,
+                                                       horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+                                     border=ft.border.all(1, "grey"),
+                                     border_radius=10,
+                                     padding=15)
+
+        self.txtResultsLista.controls.clear()
+        self.txtResultsLista.controls.append(ft.Row([riquadroLista], alignment=ft.MainAxisAlignment.CENTER))
+        self.update_page()
+
+    def creaTabellaLista(self, listaDesideri):
+        tabella = ft.DataTable(column_spacing=20)
+
+
+        colonne = [("Giocatore", 200), ("Ruolo", 110), ("Età", 40), ("Naz.", 70),
+                   ("Campionato e stagione", 180),
+                   ("PT", 50), ("RIM", 50), ("ASS", 50), ("VAL", 50),
+                   ("Specialità", 300), ("", 40)]
+
+        for nome, larghezza in colonne:
+            tabella.columns.append(ft.DataColumn(ft.Container(ft.Text(nome), width=larghezza, alignment=ft.alignment.center)))
+
+        for giocatore in listaDesideri:
+            stagione, campionato, stat, specialita = listaDesideri[giocatore]
+
+            celle = [(f"{giocatore}", 200),
+                     (f"{self.mostraNone(giocatore.ruolo)}", 110),
+                     (f"{self.mostraNone(giocatore.getEta())}", 40),
+                     (f"{self.mostraNone(giocatore.nazionalita)}", 70),
+                     (f"{campionato} {stagione}", 180)]
+
+            # medie a partita: punti, rimbalzi, assist, valutazione
+            totali = [stat.punti,
+                      stat.rimbalzi_offensivi + stat.rimbalzi_difensivi,
+                      stat.assist,
+                      stat.valutazione]
+            for totale in totali:
+                media = stat.perPartita(totale)
+                celle.append((f"{media:.2f}", 50))
+
+            celle.append((self.mostraSpecialita(specialita), 300))
+
+            riga = ft.DataRow()
+            for testo, larghezza in celle:
+                riga.cells.append(ft.DataCell(ft.Container(ft.Text(testo), width=larghezza, alignment=ft.alignment.center)))
+
+            btnRimuovi = ft.IconButton(icon=ft.icons.DELETE,
+                                       icon_color="red",
+                                       tooltip="Rimuovi dalla lista",
+                                       data=giocatore,
+                                       on_click=self._controller.handleRimuoviLista)
+            riga.cells.append(ft.DataCell(ft.Container(btnRimuovi, width=40, alignment=ft.alignment.center)))
+
+            tabella.rows.append(riga)
+
+
+        return tabella
 
 
     @property

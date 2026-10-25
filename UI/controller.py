@@ -168,6 +168,11 @@ class Controller:
         self.mostraScheda()
         self._view.mostraMigliori(scelto, self._profiloScelto, statisticheProfilo, migliori, nPeggiori)
 
+    def mostraLista(self):
+        listaDesideri = self._model.getListaDesideri()
+        self._view.mostraListaDesideri(listaDesideri)
+
+
     def handleAggiungiLista(self, e):
         if self._giocatoreScelto is None:
             self._view.create_alert("Selezionare un giocatore")
@@ -181,4 +186,11 @@ class Controller:
         stagione, campionato, nGiocatori = self._model.aggiungiLista(self._giocatoreScelto)
         self._view._txtAggiuntaLista.value = f"{self._giocatoreScelto} ({campionato} {stagione}) aggiunto alla lista. Giocatori nella lista: {nGiocatori}"
         self._view._txtAggiuntaLista.color = "green"
-        self._view.update_page()
+        self.mostraLista()
+
+    def handleRimuoviLista(self, e):
+        giocatore = e.control.data
+        print(f"Rimosso dalla lista {giocatore}")
+        self._model.rimuoviLista(giocatore)
+        self._view._txtAggiuntaLista.value = ""
+        self.mostraLista()
