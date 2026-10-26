@@ -75,10 +75,37 @@ class View(ft.UserControl):
 
 
         # scheda lista e simulatore
+        self._ddQuintetti = ft.Dropdown(label="Tipo di quintetto")
+        self._controller.fillDropdownQuintetti()
+        self._ddStranieri = self.creaMenuNumero("Stranieri al massimo")
+        self._ddStranieri.options[5].text = "5 (nessun limite)"
+        self._btnSimula = ft.ElevatedButton(text="Simula quintetto",
+                                            on_click=self._controller.handleSimulaQuintetto)
+
+        rowSimulatore = ft.Row([ft.Container(self._ddQuintetti, width=250),
+                                ft.Container(self._ddStranieri, width=250),
+                                ft.Container(self._btnSimula, width=250)],
+                               alignment=ft.MainAxisAlignment.CENTER)
+
+        # numero minimo di giocatori del quintetto per ogni specialità
+        self._ddTiratori = self.creaMenuNumero("Tiratori")
+        self._ddPassatori = self.creaMenuNumero("Passatori")
+        self._ddTiriLiberi = self.creaMenuNumero("Tiri liberi")
+        self._ddDifensori = self.creaMenuNumero("Difensori")
+        self._ddRimbalzisti = self.creaMenuNumero("Rimbalzisti")
+
+        rowSpecialita = ft.Row([ft.Text("Minimo per specialità:"),
+                                ft.Container(self._ddTiratori, width=140),
+                                ft.Container(self._ddPassatori, width=140),
+                                ft.Container(self._ddTiriLiberi, width=140),
+                                ft.Container(self._ddDifensori, width=140),
+                                ft.Container(self._ddRimbalzisti, width=140)],
+                               alignment=ft.MainAxisAlignment.CENTER)
+
         self.txtResultsLista = ft.ListView(expand=1, spacing=10, padding=20)
         self._controller.mostraLista()
 
-        schedaLista = ft.Column([ft.Container(height=10), self.txtResultsLista],
+        schedaLista = ft.Column([ft.Container(height=10), rowSimulatore, rowSpecialita, self.txtResultsLista],
                                 spacing=20)
 
         # schede
@@ -104,6 +131,12 @@ class View(ft.UserControl):
         if len(specialita) == 0:
             return "nessuna"
         return ", ".join(specialita)
+
+    def creaMenuNumero(self, etichetta):
+        menu = ft.Dropdown(label=etichetta)
+        for numero in range(6):
+            menu.options.append(ft.dropdown.Option(key=str(numero)))
+        return menu
 
     def mostraSchedaGiocatore(self, giocatore, stat, squadre, specialita):
         risultati = self.txtResultsGiocatore.controls
@@ -213,7 +246,8 @@ class View(ft.UserControl):
                        "palle_recuperate": "PR",
                        "stoppate": "STP",
                        "rimbalzi_offensivi": "RO",
-                       "rimbalzi_difensivi": "RD"}
+                       "rimbalzi_difensivi": "RD",
+                       "valutazione": "VAL"}
 
         tabella = ft.DataTable(column_spacing=20)
 
@@ -337,19 +371,19 @@ class View(ft.UserControl):
         self.update_page()
 
     def creaTabellaLista(self, listaDesideri):
-        tabella = ft.DataTable(column_spacing=20)
-
+        tabella = ft.DataTable(column_spacing=15)
 
         colonne = [("Giocatore", 200), ("Ruolo", 110), ("Età", 40), ("Naz.", 70),
                    ("Campionato e stagione", 180),
                    ("PT", 50), ("RIM", 50), ("ASS", 50), ("VAL", 50),
+                   ("Punteggio", 80),
                    ("Specialità", 300), ("", 40)]
 
         for nome, larghezza in colonne:
             tabella.columns.append(ft.DataColumn(ft.Container(ft.Text(nome), width=larghezza, alignment=ft.alignment.center)))
 
         for giocatore in listaDesideri:
-            stagione, campionato, stat, specialita = listaDesideri[giocatore]
+            stagione, campionato, stat, specialita, punteggioRuolo = listaDesideri[giocatore]
 
             celle = [(f"{giocatore}", 200),
                      (f"{self.mostraNone(giocatore.ruolo)}", 110),
@@ -357,7 +391,7 @@ class View(ft.UserControl):
                      (f"{self.mostraNone(giocatore.nazionalita)}", 70),
                      (f"{campionato} {stagione}", 180)]
 
-            # medie a partita: punti, rimbalzi, assist, valutazione
+            # medie per partita
             totali = [stat.punti,
                       stat.rimbalzi_offensivi + stat.rimbalzi_difensivi,
                       stat.assist,
@@ -365,6 +399,12 @@ class View(ft.UserControl):
             for totale in totali:
                 media = stat.perPartita(totale)
                 celle.append((f"{media:.2f}", 50))
+
+            # punteggio nel ruolo
+            if punteggioRuolo is None:
+                celle.append(("n.d.", 80))
+            else:
+                celle.append((f"{punteggioRuolo:.1f}", 80))
 
             celle.append((self.mostraSpecialita(specialita), 300))
 
@@ -381,6 +421,60 @@ class View(ft.UserControl):
 
             tabella.rows.append(riga)
 
+        return tabella
+
+    def mostraQuintetto(self, tipoQuintetto, quintetto, ruoli, sommaPunteggi, esclusi, listaDesideri):
+        contenuto = [ft.Text(f"Quintetto migliore - {tipoQuintetto}", weight=ft.FontWeight.BOLD)]
+
+        if len(quintetto) == 0:
+            contenuto.append(ft.Text("Nessun quintetto rispetta le condizioni"))
+        else:
+            media = sommaPunteggi / len(quintetto)
+            contenuto.append(ft.Text(f"Punteggio medio nel ruolo: {media:.1f}"))
+            contenuto.append(self.creaTabellaQuintetto(quintetto, ruoli, listaDesideri))
+
+        # giocatori della lista scartati prima della ricorsione
+        if len(esclusi) > 0:
+            contenuto.append(ft.Text("Esclusi dalla simulazione:"))
+            for giocatore, motivo in esclusi:
+                contenuto.append(ft.Text(f"{giocatore}: {motivo}"))
+
+        riquadroQuintetto = ft.Container(content=ft.Column(contenuto,
+                                                           horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+                                         border=ft.border.all(1, "grey"),
+                                         border_radius=10,
+                                         padding=15)
+
+        # sopra la lista dei desideri, così si vede senza scorrere
+        self.txtResultsLista.controls.insert(0, ft.Row([riquadroQuintetto], alignment=ft.MainAxisAlignment.CENTER))
+        self.update_page()
+
+    def creaTabellaQuintetto(self, quintetto, ruoli, listaDesideri):
+        tabella = ft.DataTable(column_spacing=20)
+
+        colonne = [("Gioca da", 90), ("Giocatore", 200), ("Ruolo", 110), ("Naz.", 70),
+                   ("Campionato e stagione", 180), ("VAL", 50), ("Punteggio", 80), ("Specialità", 300)]
+        for nome, larghezza in colonne:
+            tabella.columns.append(ft.DataColumn(ft.Container(ft.Text(nome), width=larghezza, alignment=ft.alignment.center)))
+
+        for i in range(len(quintetto)):
+            giocatore = quintetto[i]
+            stagione, campionato, stat, specialita, punteggioRuolo = listaDesideri[giocatore]
+            valutazione = stat.perPartita(stat.valutazione)
+
+            celle = [(ruoli[i], 90),
+                     (f"{giocatore}", 200),
+                     (giocatore.ruolo, 110),
+                     (f"{self.mostraNone(giocatore.nazionalita)}", 70),
+                     (f"{campionato} {stagione}", 180),
+                     (f"{valutazione:.2f}", 50),
+                     (f"{punteggioRuolo:.1f}", 80),
+                     (self.mostraSpecialita(specialita), 300)]
+
+            riga = ft.DataRow()
+            for testo, larghezza in celle:
+                riga.cells.append(ft.DataCell(ft.Container(ft.Text(testo), width=larghezza, alignment=ft.alignment.center)))
+            tabella.rows.append(riga)
 
         return tabella
 

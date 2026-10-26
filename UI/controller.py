@@ -103,6 +103,10 @@ class Controller:
                                    on_click=self._choiceDdProfilo)
             )
 
+    def fillDropdownQuintetti(self):
+        for quintetto in self._model.getQuintetti():
+            self._view._ddQuintetti.options.append(ft.dropdown.Option(key=quintetto))
+
     def _choiceDdProfilo(self, e):
         self._profiloScelto = e.control.data
         print(f"Hai selezionato il profilo {self._profiloScelto}")
@@ -194,3 +198,45 @@ class Controller:
         self._model.rimuoviLista(giocatore)
         self._view._txtAggiuntaLista.value = ""
         self.mostraLista()
+
+    def handleSimulaQuintetto(self, e):
+        if len(self._model.getListaDesideri()) == 0:
+            self._view.create_alert("La lista è vuota: aggiungere giocatori dalla scheda Giocatore")
+            return
+
+        tipoQuintetto = self._view._ddQuintetti.value
+        if tipoQuintetto is None:
+            self._view.create_alert("Selezionare il tipo di quintetto")
+            return
+
+        if self._view._ddStranieri.value is None:
+            maxStranieri = 5
+        else:
+            maxStranieri = int(self._view._ddStranieri.value)
+
+        # numero minimo di giocatori per specialità, senza scelta 0
+        menuSpecialita = [("Tiratore", self._view._ddTiratori),
+                          ("Passatore", self._view._ddPassatori),
+                          ("Tiri liberi", self._view._ddTiriLiberi),
+                          ("Difensore", self._view._ddDifensori),
+                          ("Rimbalzista", self._view._ddRimbalzisti)]
+        minimiSpecialita = {}
+        for specialita, menu in menuSpecialita:
+            if menu.value is None:
+                minimiSpecialita[specialita] = 0
+            else:
+                minimiSpecialita[specialita] = int(menu.value)
+
+        print(f"Tipo di quintetto: {tipoQuintetto}, stranieri al massimo: {maxStranieri}")
+        print(f"Minimi per specialità: {minimiSpecialita}")
+
+        candidati, esclusi = self._model.getCandidati()
+        print(f"Candidati: {len(candidati)}")
+
+        quintetto, sommaPunteggi, nProvati = self._model.getQuintettoMigliore(tipoQuintetto, candidati, maxStranieri, minimiSpecialita)
+        ruoli = self._model.getRuoliQuintetto(tipoQuintetto)
+        print(f"Quintetti provati: {nProvati}")
+
+        listaDesideri = self._model.getListaDesideri()
+        self.mostraLista()
+        self._view.mostraQuintetto(tipoQuintetto, quintetto, ruoli, sommaPunteggi, esclusi, listaDesideri)

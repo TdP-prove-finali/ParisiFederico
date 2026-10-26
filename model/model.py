@@ -1,3 +1,5 @@
+import copy
+
 import networkx as nx
 from networkx import Graph, DiGraph
 
@@ -16,8 +18,16 @@ class Model:
         self._listaDesideri = {}
         self._maxLista = 30
 
+        # simulatore: i ruoli da riempire per ogni tipo di quintetto
+        self._quintetti = {"Standard": ["Play", "Guardia", "Ala", "Ala", "Centro"],
+                            "Piccolo": ["Play", "Guardia", "Guardia", "Ala", "Ala"],
+                            "Alto": ["Play", "Ala", "Ala", "Centro", "Centro"],
+                            "Due play": ["Play", "Play", "Ala", "Ala", "Centro"]}
+
+
         # profili per il confronto
         self._profili = {"Generale": ["punti", "rimbalzi", "assist"],
+                         "Valutazione": ["valutazione"],
                          "Tiratore": ["tiri3_tentati", "percentuale_tiri3"],
                          "Passatore": ["assist", "rapporto_assist"],
                          "Tiri liberi": ["liberi_tentati", "percentuale_liberi"],
@@ -35,6 +45,14 @@ class Model:
         self._grafoSimilarita = Graph()
         self._valoriProfilo = {}
         self._grafoDominanze = DiGraph()
+
+        self._candidati = []
+        self._bestQuintetto = []
+        self._bestPunteggio = -1
+        self._nQuintettiProvati = 0
+        self._tipoQuintetto = None
+        self._maxStranieri = None
+        self._specialitaPiccolo = ["Rimbalzista", "Difensore"]
 
     def getAllStagioni(self):
         return DAO.getAllStagioni()
@@ -96,7 +114,8 @@ class Model:
                   "palle_recuperate": stat.palle_recuperate,
                   "stoppate": stat.stoppate,
                   "rimbalzi_offensivi": stat.rimbalzi_offensivi,
-                  "rimbalzi_difensivi": stat.rimbalzi_difensivi}
+                  "rimbalzi_difensivi": stat.rimbalzi_difensivi,
+                  "valutazione": stat.valutazione}
 
         return stat.perPartita(totali[nomeStatistica])
 
@@ -315,7 +334,7 @@ class Model:
 
         punteggi = []
         for profilo in self._profili:
-            if profilo == "Generale":
+            if profilo == "Generale" or profilo == "Valutazione":
                 continue
             punteggio = self.getPunteggioProfilo(giocatore, profilo)
             if punteggio is None:
@@ -337,7 +356,7 @@ class Model:
     def getMotivoNonAggiungibile(self, giocatore):
 
         if giocatore in self._listaDesideri:
-            stagione, campionato, stat, specialita = self._listaDesideri[giocatore]
+            stagione, campionato, stat, specialita, punteggioRuolo = self._listaDesideri[giocatore]
             return f"{giocatore} è già nella lista ({campionato} {stagione})"
         if len(self._listaDesideri) >= self._maxLista:
             return f"La lista è piena ({self._maxLista} giocatori)"
@@ -347,7 +366,8 @@ class Model:
 
         stat = self._statistiche[giocatore]
         specialita = self.getSpecialita(giocatore)
-        self._listaDesideri[giocatore] = (self._stagione, self._campionato, stat, specialita)
+        punteggioRuolo = self.getPunteggioProfilo(giocatore, "Valutazione")
+        self._listaDesideri[giocatore] = (self._stagione, self._campionato, stat, specialita, punteggioRuolo)
         return self._stagione, self._campionato, len(self._listaDesideri)
 
     def getListaDesideri(self):
@@ -355,3 +375,106 @@ class Model:
 
     def rimuoviLista(self, giocatore):
         del self._listaDesideri[giocatore]
+
+    def getQuintetti(self):
+        return list(self._quintetti.keys())
+
+    def getCandidati(self):
+
+        """non uso getMotivoEsclusione perché legge la stagione caricata in quel momento"""
+        candidati = []
+        esclusi = []
+        for giocatore in self._listaDesideri:
+            stagione, campionato, stat, specialita, punteggioRuolo = self._listaDesideri[giocatore]
+            if giocatore.ruolo is None:
+                esclusi.append((giocatore, "ruolo non disponibile"))
+            elif stat.partite < self._partiteMinime:
+                esclusi.append((giocatore, f"meno di {self._partiteMinime} partite giocate"))
+            elif stat.perPartita(stat.minuti) < self._minutiMinimi:
+                esclusi.append((giocatore, f"meno di {self._minutiMinimi} minuti a partita"))
+            else:
+                candidati.append(giocatore)
+        return candidati, esclusi
+
+    def getRuoliQuintetto(self, tipoQuintetto):
+        return self._quintetti[tipoQuintetto]
+
+    def getQuintettoMigliore(self, tipoQuintetto, candidati, maxStranieri,minimiSpecialita):
+        self._candidati = candidati
+        self._tipoQuintetto = tipoQuintetto
+        self._maxStranieri = maxStranieri
+        self._minimiSpecialita = minimiSpecialita
+        self._bestQuintetto = []
+        self._bestPunteggio = -1
+        self._nQuintettiProvati = 0
+
+        ruoli = self._quintetti[tipoQuintetto]
+        parziale = []
+        self._ricorsione(parziale, ruoli)
+
+        return self._bestQuintetto, self._bestPunteggio, self._nQuintettiProvati
+
+    def _ricorsione(self, parziale, ruoli):
+
+        if self._getNumeroStranieri(parziale) > self._maxStranieri:
+            return
+
+        if len(parziale) == len(ruoli):
+            self._nQuintettiProvati += 1
+            if self._rispettaCondizioni(parziale, ruoli):
+                punteggio = self._getPunteggioQuintetto(parziale)
+                if punteggio > self._bestPunteggio:
+                    self._bestQuintetto = copy.deepcopy(parziale)
+                    self._bestPunteggio = punteggio
+            return
+
+        prossimoRuolo = ruoli[len(parziale)]
+        for giocatore in self._candidati:
+            if giocatore not in parziale and prossimoRuolo in giocatore.ruolo.split("/"):
+                parziale.append(giocatore)
+                self._ricorsione(parziale, ruoli)
+                parziale.pop()
+
+    def _getPunteggioQuintetto(self, quintetto):
+        sommaPunteggi = 0
+        for giocatore in quintetto:
+            stagione, campionato, stat, specialita, punteggioRuolo = self._listaDesideri[giocatore]
+            sommaPunteggi += punteggioRuolo
+        return sommaPunteggi
+
+    def _getNumeroStranieri(self, quintetto):
+        nStranieri = 0
+        for giocatore in quintetto:
+            if giocatore.nazionalita is not None and "ITA" not in giocatore.nazionalita:
+                nStranieri += 1
+        return nStranieri
+
+    def _haSpecialita(self, giocatore, nomeSpecialita):
+        stagione, campionato, stat, specialita, punteggioRuolo = self._listaDesideri[giocatore]
+        if nomeSpecialita in specialita:
+            return True
+        else:
+            return False
+
+    def _rispettaCondizioni(self, quintetto, ruoli):
+
+        # numero minimo di giocatori per ogni specialità
+        for nomeSpecialita in self._minimiSpecialita:
+            nGiocatori = 0
+            for giocatore in quintetto:
+                if self._haSpecialita(giocatore, nomeSpecialita):
+                    nGiocatori += 1
+            if nGiocatori < self._minimiSpecialita[nomeSpecialita]:
+                return False
+
+        if self._tipoQuintetto == "Piccolo":
+            alaAdatta = False
+            for i in range(len(quintetto)):
+                if ruoli[i] == "Ala":
+                    for nomeSpecialita in self._specialitaPiccolo:
+                        if self._haSpecialita(quintetto[i], nomeSpecialita):
+                            alaAdatta = True
+            if not alaAdatta:
+                return False
+
+        return True
