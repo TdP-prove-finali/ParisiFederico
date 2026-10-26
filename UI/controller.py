@@ -61,6 +61,11 @@ class Controller:
         self._giocatoreScelto = None
         self._view.txtResultsGiocatore.controls.clear()
 
+        self.fillDropdownNazionalita()
+        self._view._btnCerca.disabled = False
+        self._view._txtAggiuntaRicerca.value = ""
+        self._view.txtResultsRicerca.controls.clear()
+
         self._view.update_page()
 
     def handleFiltraGiocatori(self, e):
@@ -133,7 +138,6 @@ class Controller:
         print(f"Grafo delle similarità, profilo {self._profiloScelto}: {nNodi} nodi e {nArchi} archi")
 
         sostituti = self._model.getSostituti(self._giocatoreScelto)
-        print(f"Sostituti di {self._giocatoreScelto}: {len(sostituti)}")
         for sostituto, peso, valori, squadre in sostituti:
             print(f"{sostituto} - peso {peso:.3f}")
 
@@ -162,8 +166,6 @@ class Controller:
 
         migliori = self._model.getMigliori(self._giocatoreScelto)
         nPeggiori = self._model.getNumeroPeggiori(self._giocatoreScelto)
-        print(f"Giocatori migliori di {self._giocatoreScelto}: {len(migliori)}")
-        print(f"{self._giocatoreScelto} è migliore di {nPeggiori} giocatori")
         for migliore, peso, valori, squadre in migliori:
             print(f"{migliore} - peso {peso:.3f}")
 
@@ -194,7 +196,6 @@ class Controller:
 
     def handleRimuoviLista(self, e):
         giocatore = e.control.data
-        print(f"Rimosso dalla lista {giocatore}")
         self._model.rimuoviLista(giocatore)
         self._view._txtAggiuntaLista.value = ""
         self.mostraLista()
@@ -227,11 +228,7 @@ class Controller:
             else:
                 minimiSpecialita[specialita] = int(menu.value)
 
-        print(f"Tipo di quintetto: {tipoQuintetto}, stranieri al massimo: {maxStranieri}")
-        print(f"Minimi per specialità: {minimiSpecialita}")
-
         candidati, esclusi = self._model.getCandidati()
-        print(f"Candidati: {len(candidati)}")
 
         quintetto, sommaPunteggi, nProvati = self._model.getQuintettoMigliore(tipoQuintetto, candidati, maxStranieri, minimiSpecialita)
         ruoli = self._model.getRuoliQuintetto(tipoQuintetto)
@@ -240,3 +237,54 @@ class Controller:
         listaDesideri = self._model.getListaDesideri()
         self.mostraLista()
         self._view.mostraQuintetto(tipoQuintetto, quintetto, ruoli, sommaPunteggi, esclusi, listaDesideri)
+
+    def fillDropdownNazionalita(self):
+        self._view._ddNazionalita.options.clear()
+        self._view._ddNazionalita.value = None
+        nazionalita, nStranieri = self._model.getNazionalita()
+
+        self._view._ddNazionalita.options.append(ft.dropdown.Option(key="Tutte"))
+        self._view._ddNazionalita.options.append(ft.dropdown.Option(key="Stranieri", text=f"Stranieri ({nStranieri})"))
+        for codice, numero in nazionalita:
+            self._view._ddNazionalita.options.append(ft.dropdown.Option(key=codice, text=f"{codice} ({numero})"))
+
+    def handleCerca(self, e):
+        # menu non scelto (None) o voce "Tutti"/"Tutte": nessun filtro
+        ruolo = self._view._ddRuolo.value
+        if ruolo == "Tutti":
+            ruolo = None
+
+        nazionalita = self._view._ddNazionalita.value
+        if nazionalita == "Tutte":
+            nazionalita = None
+
+        specialita = self._view._ddSpecialita.value
+        if specialita == "Tutte":
+            specialita = None
+
+        testoEta = self._view._txtInEta.value
+        if testoEta == "":
+            etaMassima = None
+        else:
+            try:
+                etaMassima = int(testoEta)
+            except ValueError:
+                self._view.create_alert("L'età massima deve essere un numero intero")
+                return
+
+        risultati = self._model.getGiocatoriRicerca(ruolo, etaMassima, nazionalita, specialita)
+
+        self._view._txtAggiuntaRicerca.value = ""
+        self._view.mostraRicerca(risultati)
+
+    def handleAggiungiDaRicerca(self, e):
+        giocatore = e.control.data
+        motivo = self._model.getMotivoNonAggiungibile(giocatore)
+        if motivo is not None:
+            self._view.create_alert(motivo)
+            return
+
+        stagione, campionato, nGiocatori = self._model.aggiungiLista(giocatore)
+        self._view._txtAggiuntaRicerca.value = f"{giocatore} ({campionato} {stagione}) aggiunto alla lista. Giocatori nella lista: {nGiocatori}"
+        self._view._txtAggiuntaRicerca.color = "green"
+        self.mostraLista()

@@ -33,6 +33,40 @@ class View(ft.UserControl):
 
         self._txtMessaggio = ft.Text("")
 
+        #scheda ricerca
+        self._ddRuolo = ft.Dropdown(label="Ruolo")
+        for ruolo in ["Tutti", "Play", "Guardia", "Ala", "Centro"]:
+            self._ddRuolo.options.append(ft.dropdown.Option(key=ruolo))
+
+        self._txtInEta = ft.TextField(label="Età massima")
+
+        # si riempie quando si caricano i giocatori: i numeri dipendono da stagione e campionato
+        self._ddNazionalita = ft.Dropdown(label="Nazionalità")
+
+        self._ddSpecialita = ft.Dropdown(label="Specialità")
+        for specialita in ["Tutte", "Tiratore", "Passatore", "Tiri liberi", "Difensore", "Rimbalzista"]:
+            self._ddSpecialita.options.append(ft.dropdown.Option(key=specialita))
+
+        self._btnCerca = ft.ElevatedButton(text="Cerca",
+                                           on_click=self._controller.handleCerca,
+                                           disabled=True)
+
+        rowFiltri = ft.Row([ft.Container(self._ddRuolo, width=180),
+                            ft.Container(self._txtInEta, width=180),
+                            ft.Container(self._ddNazionalita, width=180),
+                            ft.Container(self._ddSpecialita, width=180),
+                            ft.Container(self._btnCerca, width=180)],
+                           alignment=ft.MainAxisAlignment.CENTER)
+
+        self._txtAggiuntaRicerca = ft.Text("")
+
+        self.txtResultsRicerca = ft.ListView(expand=1, spacing=10, padding=20)
+
+        schedaRicerca = ft.Column([ft.Container(height=10), rowFiltri,
+                                   ft.Row([self._txtAggiuntaRicerca], alignment=ft.MainAxisAlignment.CENTER),
+                                   self.txtResultsRicerca],
+                                  spacing=20)
+
         # scheda giocatore
 
         self._txtInCognome = ft.TextField(label="Cognome",
@@ -110,7 +144,8 @@ class View(ft.UserControl):
 
         # schede
         self._tabs = ft.Tabs(selected_index=0,
-                             tabs=[ft.Tab(text="Giocatore", content=schedaGiocatore),
+                             tabs=[ft.Tab(text="Ricerca", content=schedaRicerca),
+                                   ft.Tab(text="Giocatore", content=schedaGiocatore),
                                    ft.Tab(text="Lista e simulatore", content=schedaLista)],
                              expand=1,
                              tab_alignment=ft.TabAlignment.CENTER)
@@ -481,6 +516,75 @@ class View(ft.UserControl):
             riga = ft.DataRow()
             for testo, larghezza in celle:
                 riga.cells.append(ft.DataCell(ft.Container(ft.Text(testo), width=larghezza, alignment=ft.alignment.center)))
+            tabella.rows.append(riga)
+
+        return tabella
+
+    def mostraRicerca(self, risultati):
+        if len(risultati) == 0:
+            testo = "Nessun giocatore rispetta i filtri"
+        elif len(risultati) == 1:
+            testo = "Trovato 1 giocatore"
+        else:
+            testo = f"Trovati {len(risultati)} giocatori"
+
+        contenuto = [ft.Text("Risultati della ricerca", weight=ft.FontWeight.BOLD),
+                     ft.Text(testo)]
+        if len(risultati) > 0:
+            contenuto.append(self.creaTabellaRicerca(risultati))
+
+        riquadroRicerca = ft.Container(content=ft.Column(contenuto,
+                                                         horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+                                       border=ft.border.all(1, "grey"),
+                                       border_radius=10,
+                                       padding=15)
+
+        self.txtResultsRicerca.controls.clear()
+        self.txtResultsRicerca.controls.append(ft.Row([riquadroRicerca], alignment=ft.MainAxisAlignment.CENTER))
+        self.update_page()
+
+    def creaTabellaRicerca(self, risultati):
+        tabella = ft.DataTable(column_spacing=15)
+
+        colonne = [("Giocatore", 200), ("Ruolo", 110), ("Età", 40), ("Naz.", 70),
+                   ("Squadra", 220),
+                   ("PT", 50), ("RIM", 50), ("ASS", 50), ("VAL", 50),
+                   ("Punteggio", 80),
+                   ("Specialità", 260), ("", 40)]
+
+        for nome, larghezza in colonne:
+            tabella.columns.append(ft.DataColumn(ft.Container(ft.Text(nome), width=larghezza, alignment=ft.alignment.center)))
+
+        for giocatore, stat, specialita, punteggioRuolo, squadre in risultati:
+            celle = [(f"{giocatore}", 200),
+                     (giocatore.ruolo, 110),
+                     (f"{self.mostraNone(giocatore.getEta())}", 40),
+                     (f"{self.mostraNone(giocatore.nazionalita)}", 70),
+                     (squadre, 220)]
+
+            # medie per partita
+            totali = [stat.punti,
+                      stat.rimbalzi_offensivi + stat.rimbalzi_difensivi,
+                      stat.assist,
+                      stat.valutazione]
+            for totale in totali:
+                media = stat.perPartita(totale)
+                celle.append((f"{media:.2f}", 50))
+
+            celle.append((f"{punteggioRuolo:.1f}", 80))
+            celle.append((self.mostraSpecialita(specialita), 260))
+
+            riga = ft.DataRow()
+            for testo, larghezza in celle:
+                riga.cells.append(ft.DataCell(ft.Container(ft.Text(testo), width=larghezza, alignment=ft.alignment.center)))
+
+            btnAggiungi = ft.IconButton(icon=ft.icons.ADD,
+                                        icon_color="green",
+                                        tooltip="Aggiungi alla lista",
+                                        data=giocatore,
+                                        on_click=self._controller.handleAggiungiDaRicerca)
+            riga.cells.append(ft.DataCell(ft.Container(btnAggiungi, width=40, alignment=ft.alignment.center)))
+
             tabella.rows.append(riga)
 
         return tabella

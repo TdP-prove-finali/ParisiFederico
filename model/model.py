@@ -15,6 +15,7 @@ class Model:
         self._statistiche = {}
         self._stagione = None
         self._campionato = None
+        self._confrontabili = {}
         self._listaDesideri = {}
         self._maxLista = 30
 
@@ -68,6 +69,11 @@ class Model:
         for statistica in DAO.getStatisticheGiocatori(stagione.id_stagione, campionato.id_campionato):
             giocatore = self._idMapGiocatori[statistica.id_giocatore]
             self._statistiche[giocatore] = statistica
+
+        self._confrontabili = {}
+        for profilo in self._profili:
+            self._confrontabili[profilo] = self.getGiocatoriConfrontabili(profilo)
+
         return len(self._statistiche)
 
     def cercaGiocatori(self, testo):
@@ -306,7 +312,7 @@ class Model:
         if self.getMotivoEsclusione(giocatore, profilo) is not None:
             return None
 
-        confrontabili = self.getGiocatoriConfrontabili(profilo)
+        confrontabili = self._confrontabili[profilo]
         valoriGiocatore = confrontabili[giocatore]
 
         # giocatori di ruolo compatibile confrontabili nello stesso profilo
@@ -338,10 +344,7 @@ class Model:
             if profilo == "Generale" or profilo == "Valutazione":
                 continue
             punteggio = self.getPunteggioProfilo(giocatore, profilo)
-            if punteggio is None:
-                print(f"{giocatore} - {profilo}: non confrontabile")
-            else:
-                print(f"{giocatore} - {profilo}: {punteggio:.1f}")
+            if punteggio is  not None:
                 punteggi.append((profilo, punteggio))
 
         if len(punteggi) == 0:
@@ -479,3 +482,56 @@ class Model:
                 return False
 
         return True
+
+    def getNazionalita(self):
+        """
+        nazionalità dei giocatori della ricerca con il numero di giocatori dalla più numerosa
+        chi ha due nazionalità conta in tutte e due
+        """
+        conteggi = {}
+        nStranieri = 0
+        for giocatore in self._confrontabili["Valutazione"]:
+            if giocatore.nazionalita is None:
+                continue
+            if "ITA" not in giocatore.nazionalita:
+                nStranieri += 1
+            for codice in giocatore.nazionalita.split("/"):
+                if codice in conteggi:
+                    conteggi[codice] += 1
+                else:
+                    conteggi[codice] = 1
+
+        nazionalita = list(conteggi.items())
+        nazionalita.sort()
+        nazionalita.sort(key=lambda x: x[1], reverse=True)
+        return nazionalita, nStranieri
+
+    def getGiocatoriRicerca(self, ruolo, etaMassima, nazionalitaCercata, specialitaCercata):
+
+        risultato = []
+        for giocatore in self._confrontabili["Valutazione"]:
+
+            if ruolo is not None and ruolo not in giocatore.ruolo.split("/"):
+                continue
+            if etaMassima is not None:
+                eta = giocatore.getEta()
+                if eta is None or eta > etaMassima:
+                    continue
+            if nazionalitaCercata == "Stranieri":
+                if giocatore.nazionalita is None or "ITA" in giocatore.nazionalita:
+                    continue
+            elif nazionalitaCercata is not None:
+                if giocatore.nazionalita is None or nazionalitaCercata not in giocatore.nazionalita.split("/"):
+                    continue
+
+            specialita = self.getSpecialita(giocatore)
+            if specialitaCercata is not None and specialitaCercata not in specialita:
+                continue
+
+            stat = self._statistiche[giocatore]
+            punteggioRuolo = self.getPunteggioProfilo(giocatore, "Valutazione")
+            squadre = self.getNomiSquadre(giocatore)
+            risultato.append((giocatore, stat, specialita, punteggioRuolo, squadre))
+
+        risultato.sort(key=lambda x: x[3], reverse=True)
+        return risultato
