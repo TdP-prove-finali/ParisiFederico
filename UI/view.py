@@ -173,7 +173,14 @@ class View(ft.UserControl):
             nomeSquadra = squadra["nome"]
             partite = squadra["partite"]
             punti = squadra["punti"]
-            testiSquadre.append(ft.Text(f"{nomeSquadra}: {partite} partite, {punti} punti"))
+            posizione = squadra["posizione"]
+            girone = squadra["girone"]
+
+            if girone is None:
+                classifica = f"{posizione}° posto"
+            else:
+                classifica = f"{posizione}° posto, girone {girone}"
+            testiSquadre.append(ft.Text(f"{nomeSquadra} ({classifica}): {partite} partite, {punti} punti"))
 
         riquadroSquadre = ft.Container(content=ft.Column(testiSquadre, horizontal_alignment=ft.CrossAxisAlignment.CENTER),
                                        border=ft.border.all(1, "grey"),

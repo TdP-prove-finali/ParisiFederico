@@ -110,7 +110,7 @@ class DAO():
         result = []
 
         cursor = conn.cursor(dictionary=True)
-        query = """SELECT p.nome, ss.partite, ss.punti
+        query = """SELECT p.nome, p.posizione, p.girone, ss.partite, ss.punti
                    FROM statistica_stagionale ss, partecipazione_squadra p
                    WHERE ss.id_partecipazione = p.id_partecipazione
                    AND ss.id_giocatore = %s

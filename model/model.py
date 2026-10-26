@@ -52,6 +52,7 @@ class Model:
         self._nQuintettiProvati = 0
         self._tipoQuintetto = None
         self._maxStranieri = None
+        self._minimiSpecialita = {}
         self._specialitaPiccolo = ["Rimbalzista", "Difensore"]
 
     def getAllStagioni(self):
