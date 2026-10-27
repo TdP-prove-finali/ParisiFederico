@@ -18,6 +18,7 @@ class Model:
         self._confrontabili = {}
         self._listaDesideri = {}
         self._maxLista = 30
+        self._partecipazioni = []
 
         # simulatore: i ruoli da riempire per ogni tipo di quintetto
         self._quintetti = {"Standard": ["Play", "Guardia", "Ala", "Ala", "Centro"],
@@ -73,6 +74,8 @@ class Model:
         self._confrontabili = {}
         for profilo in self._profili:
             self._confrontabili[profilo] = self.getGiocatoriConfrontabili(profilo)
+
+        self._partecipazioni = DAO.getPartecipazioni(stagione.id_stagione, campionato.id_campionato)
 
         return len(self._statistiche)
 
@@ -535,3 +538,29 @@ class Model:
 
         risultato.sort(key=lambda x: x[3], reverse=True)
         return risultato
+
+    def getSquadre(self):
+
+        squadre = list(self._partecipazioni)
+        squadre.sort(key=lambda x: x.nome)
+        return squadre
+
+    def getClassifica(self):
+
+        gironi = {}
+        for squadra in self._partecipazioni:
+            punti = squadra.vittorie * 2
+            partite = squadra.vittorie + squadra.sconfitte
+            differenza = squadra.punti_fatti - squadra.punti_subiti
+            if squadra.girone not in gironi:
+                gironi[squadra.girone] = []
+            gironi[squadra.girone].append((squadra, punti, partite, differenza))
+        return gironi
+
+    def getGiocatoriSquadra(self, squadra):
+        giocatori = []
+        for stat in DAO.getGiocatoriSquadra(squadra.id_partecipazione):
+            giocatore = self._idMapGiocatori[stat.id_giocatore]
+            giocatori.append((giocatore, stat))
+        giocatori.sort(key=lambda x: x[1].perPartita(x[1].valutazione), reverse=True)
+        return giocatori

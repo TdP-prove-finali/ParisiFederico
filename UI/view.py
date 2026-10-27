@@ -107,6 +107,21 @@ class View(ft.UserControl):
                                      self.txtResultsGiocatore],
                                     spacing=20)
 
+        # scheda classifica e squadre
+        self._btnClassifica = ft.ElevatedButton(text="Mostra classifica",
+                                                on_click=self._controller.handleMostraClassifica,
+                                                disabled=True)
+
+        self._ddSquadra = ft.Dropdown(label="Squadra")
+
+        rowClassifica = ft.Row([self._btnClassifica], alignment=ft.MainAxisAlignment.CENTER)
+        rowSquadra = ft.Row([ft.Container(self._ddSquadra, width=350)], alignment=ft.MainAxisAlignment.CENTER)
+
+        self.txtResultsSquadre = ft.ListView(expand=1, spacing=10, padding=20)
+
+        schedaSquadre = ft.Column([ft.Container(height=10), rowClassifica, rowSquadra, self.txtResultsSquadre],
+                                  spacing=20)
+
 
         # scheda lista e simulatore
         self._ddQuintetti = ft.Dropdown(label="Tipo di quintetto")
@@ -146,6 +161,7 @@ class View(ft.UserControl):
         self._tabs = ft.Tabs(selected_index=0,
                              tabs=[ft.Tab(text="Ricerca", content=schedaRicerca),
                                    ft.Tab(text="Giocatore", content=schedaGiocatore),
+                                   ft.Tab(text="Classifica e squadre", content=schedaSquadre),
                                    ft.Tab(text="Lista e simulatore", content=schedaLista)],
                              expand=1,
                              tab_alignment=ft.TabAlignment.CENTER)
@@ -585,6 +601,105 @@ class View(ft.UserControl):
                                         on_click=self._controller.handleAggiungiDaRicerca)
             riga.cells.append(ft.DataCell(ft.Container(btnAggiungi, width=40, alignment=ft.alignment.center)))
 
+            tabella.rows.append(riga)
+
+        return tabella
+
+    def mostraClassifica(self, classifica):
+        contenuto = [ft.Text("Classifica", weight=ft.FontWeight.BOLD)]
+        for girone in classifica:
+            # l'A2 ha un girone solo
+            if girone is not None:
+                contenuto.append(ft.Text(f"Girone {girone}"))
+            contenuto.append(self.creaTabellaClassifica(classifica[girone]))
+
+        riquadroClassifica = ft.Container(content=ft.Column(contenuto,
+                                                            horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+                                          border=ft.border.all(1, "grey"),
+                                          border_radius=10,
+                                          padding=15)
+
+        self.txtResultsSquadre.controls.clear()
+        self.txtResultsSquadre.controls.append(ft.Row([riquadroClassifica], alignment=ft.MainAxisAlignment.CENTER))
+        self.update_page()
+
+    def creaTabellaClassifica(self, squadreGirone):
+        tabella = ft.DataTable(column_spacing=15)
+
+        colonne = [("Pos", 40), ("Squadra", 260), ("Pti", 40), ("G", 40), ("V", 40), ("P", 40),
+                   ("PF", 60), ("PS", 60), ("Diff", 60)]
+        for nome, larghezza in colonne:
+            tabella.columns.append(ft.DataColumn(ft.Container(ft.Text(nome), width=larghezza, alignment=ft.alignment.center)))
+
+        for squadra, punti, partite, differenza in squadreGirone:
+            celle = [(f"{squadra.posizione}", 40),
+                     (f"{squadra}", 260),
+                     (f"{punti}", 40),
+                     (f"{partite}", 40),
+                     (f"{squadra.vittorie}", 40),
+                     (f"{squadra.sconfitte}", 40),
+                     (f"{squadra.punti_fatti}", 60),
+                     (f"{squadra.punti_subiti}", 60),
+                     (f"{differenza}", 60)]
+
+            riga = ft.DataRow()
+            for testo, larghezza in celle:
+                riga.cells.append(ft.DataCell(ft.Container(ft.Text(testo), width=larghezza, alignment=ft.alignment.center)))
+            tabella.rows.append(riga)
+
+        return tabella
+
+    def mostraGiocatoriSquadra(self, squadra, giocatori):
+        if squadra.girone is None:
+            classifica = f"{squadra.posizione}° posto"
+        else:
+            classifica = f"{squadra.posizione}° posto, girone {squadra.girone}"
+        testoSquadra = (f"{classifica}: {squadra.vittorie} vittorie, {squadra.sconfitte} sconfitte, "
+                        f"punti fatti {squadra.punti_fatti}, subiti {squadra.punti_subiti}")
+
+        contenuto = [ft.Text(f"{squadra}", weight=ft.FontWeight.BOLD),
+                     ft.Text(testoSquadra),
+                     ft.Text(f"{len(giocatori)} giocatori"),
+                     self.creaTabellaSquadra(giocatori)]
+
+        riquadroSquadra = ft.Container(content=ft.Column(contenuto,
+                                                         horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+                                       border=ft.border.all(1, "grey"),
+                                       border_radius=10,
+                                       padding=15)
+
+        self.txtResultsSquadre.controls.clear()
+        self.txtResultsSquadre.controls.append(ft.Row([riquadroSquadra], alignment=ft.MainAxisAlignment.CENTER))
+        self.update_page()
+
+    def creaTabellaSquadra(self, giocatori):
+        tabella = ft.DataTable(column_spacing=15)
+
+        colonne = [("Giocatore", 200), ("Ruolo", 110), ("Età", 40), ("Naz.", 70), ("Partite", 60),
+                   ("MIN", 50), ("PT", 50), ("RIM", 50), ("ASS", 50), ("VAL", 50)]
+        for nome, larghezza in colonne:
+            tabella.columns.append(ft.DataColumn(ft.Container(ft.Text(nome), width=larghezza, alignment=ft.alignment.center)))
+
+        for giocatore, stat in giocatori:
+            celle = [(f"{giocatore}", 200),
+                     (f"{self.mostraNone(giocatore.ruolo)}", 110),
+                     (f"{self.mostraNone(giocatore.getEta())}", 40),
+                     (f"{self.mostraNone(giocatore.nazionalita)}", 70),
+                     (f"{stat.partite}", 60)]
+
+            # medie per partita
+            totali = [stat.minuti,
+                      stat.punti,
+                      stat.rimbalzi_offensivi + stat.rimbalzi_difensivi,
+                      stat.assist,
+                      stat.valutazione]
+            for totale in totali:
+                media = stat.perPartita(totale)
+                celle.append((f"{media:.2f}", 50))
+
+            riga = ft.DataRow()
+            for testo, larghezza in celle:
+                riga.cells.append(ft.DataCell(ft.Container(ft.Text(testo), width=larghezza, alignment=ft.alignment.center)))
             tabella.rows.append(riga)
 
         return tabella

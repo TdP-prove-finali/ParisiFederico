@@ -1,4 +1,5 @@
 from database.DB_connect import DBConnect
+from model.Partecipazione import Partecipazione
 from model.giocatore import Giocatore
 from model.stagione import Stagione
 from model.campionato import Campionato
@@ -121,6 +122,54 @@ class DAO():
 
         for row in cursor:
             result.append(row)
+
+        cursor.close()
+        conn.close()
+        return result
+
+    @staticmethod
+    def getPartecipazioni(idStagione, idCampionato):
+        conn = DBConnect.get_connection()
+
+        result = []
+
+        cursor = conn.cursor(dictionary=True)
+        query = """SELECT p.id_partecipazione, p.nome, p.girone, p.posizione,
+                          p.vittorie, p.sconfitte, p.punti_fatti, p.punti_subiti
+                   FROM partecipazione_squadra p
+                   WHERE p.id_stagione = %s
+                   AND p.id_campionato = %s
+                   ORDER BY p.girone, p.posizione"""
+
+        cursor.execute(query, (idStagione, idCampionato))
+
+        for row in cursor:
+            result.append(Partecipazione(**row))
+
+        cursor.close()
+        conn.close()
+        return result
+
+    @staticmethod
+    def getGiocatoriSquadra(idPartecipazione):
+        conn = DBConnect.get_connection()
+
+        result = []
+
+        cursor = conn.cursor(dictionary=True)
+        query = """SELECT ss.id_giocatore, ss.partite, ss.minuti, ss.punti,
+                          ss.tiri2_segnati, ss.tiri2_tentati, ss.tiri3_segnati, ss.tiri3_tentati,
+                          ss.liberi_segnati, ss.liberi_tentati,
+                          ss.rimbalzi_offensivi, ss.rimbalzi_difensivi,
+                          ss.assist, ss.palle_recuperate, ss.palle_perse, ss.stoppate,
+                          ss.stoppate_subite, ss.falli, ss.falli_subiti, ss.valutazione
+                   FROM statistica_stagionale ss
+                   WHERE ss.id_partecipazione = %s"""
+
+        cursor.execute(query, (idPartecipazione,))
+
+        for row in cursor:
+            result.append(TotaliGiocatore(**row))
 
         cursor.close()
         conn.close()

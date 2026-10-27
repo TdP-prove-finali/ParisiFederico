@@ -66,6 +66,10 @@ class Controller:
         self._view._txtAggiuntaRicerca.value = ""
         self._view.txtResultsRicerca.controls.clear()
 
+        self.fillDropdownSquadre()
+        self._view._btnClassifica.disabled = False
+        self._view.txtResultsSquadre.controls.clear()
+
         self._view.update_page()
 
     def handleFiltraGiocatori(self, e):
@@ -288,3 +292,23 @@ class Controller:
         self._view._txtAggiuntaRicerca.value = f"{giocatore} ({campionato} {stagione}) aggiunto alla lista. Giocatori nella lista: {nGiocatori}"
         self._view._txtAggiuntaRicerca.color = "green"
         self.mostraLista()
+
+    def fillDropdownSquadre(self):
+        self._view._ddSquadra.options.clear()
+        self._view._ddSquadra.value = None
+        for squadra in self._model.getSquadre():
+            self._view._ddSquadra.options.append(
+                ft.dropdown.Option(data=squadra,
+                                   key=str(squadra.id_partecipazione),
+                                   text=squadra.nome,
+                                   on_click=self.handleSceltaSquadra)
+            )
+
+    def handleMostraClassifica(self, e):
+        classifica = self._model.getClassifica()
+        self._view.mostraClassifica(classifica)
+
+    def handleSceltaSquadra(self, e):
+        squadra = e.control.data
+        giocatori = self._model.getGiocatoriSquadra(squadra)
+        self._view.mostraGiocatoriSquadra(squadra, giocatori)
