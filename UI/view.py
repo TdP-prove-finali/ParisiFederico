@@ -5,7 +5,7 @@ class View(ft.UserControl):
     def __init__(self, page: ft.Page):
         super().__init__()
         self._page = page
-        self._page.title = "Scouting basket 2026"
+        self._page.title = "Scouting Basket - Serie A2 e B Nazionale"
         self._page.horizontal_alignment = 'CENTER'
         self._page.theme_mode = ft.ThemeMode.LIGHT
         self._controller = None
@@ -13,7 +13,7 @@ class View(ft.UserControl):
 
     def load_interface(self):
 
-        self._title = ft.Text("Scouting Basket 2026", color="blue", size=24)
+        self._title = ft.Text("Scouting Basket - Serie A2 e B Nazionale", color="blue", size=24)
 
         # parte in alto
 

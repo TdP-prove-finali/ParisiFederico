@@ -1,11 +1,10 @@
 import flet as ft
+import time
 
 
 class Controller:
     def __init__(self, view, model):
-        # the view, with the graphical elements of the UI
         self._view = view
-        # the model, which implements the logic of the program and holds the data
         self._model = model
         self._stagioneScelta = None
         self._campionatoScelto = None
@@ -49,7 +48,10 @@ class Controller:
             self._view.create_alert("Selezionare un campionato")
             return
 
+        inizio = time.perf_counter()
         nGiocatori = self._model.caricaGiocatori(self._stagioneScelta, self._campionatoScelto)
+        fine = time.perf_counter()
+        print(f"Caricamento: {fine - inizio:.4f} secondi")
         self._view._txtMessaggio.value = f"Caricati {nGiocatori} giocatori della {self._campionatoScelto} {self._stagioneScelta}"
         self._view._txtMessaggio.color = "green"
 
@@ -137,7 +139,10 @@ class Controller:
             self._view.create_alert(f"{self._giocatoreScelto} non è confrontabile: {motivo}")
             return
 
+        inizio = time.perf_counter()
         self._model.buildGrafoSimilarita(self._profiloScelto)
+        fine = time.perf_counter()
+        print(f"Grafo delle similarità costruito in {fine - inizio:.4f} secondi")
         nNodi, nArchi = self._model.getGraphDetails()
         print(f"Grafo delle similarità, profilo {self._profiloScelto}: {nNodi} nodi e {nArchi} archi")
 
@@ -164,7 +169,11 @@ class Controller:
             self._view.create_alert(f"{self._giocatoreScelto} non è confrontabile: {motivo}")
             return
 
+        inizio = time.perf_counter()
         self._model.buildGrafoDominanze(self._profiloScelto)
+        fine = time.perf_counter()
+        print(f"Grafo delle dominanze costruito in {fine - inizio:.4f} secondi")
+
         nNodi, nArchi = self._model.getGraphDetailsDominanze()
         print(f"Grafo delle dominanze, profilo {self._profiloScelto}: {nNodi} nodi e {nArchi} archi")
 
@@ -234,9 +243,11 @@ class Controller:
 
         candidati, esclusi = self._model.getCandidati()
 
+        inizio = time.perf_counter()
         quintetto, sommaPunteggi, nProvati = self._model.getQuintettoMigliore(tipoQuintetto, candidati, maxStranieri, minimiSpecialita)
+        fine = time.perf_counter()
         ruoli = self._model.getRuoliQuintetto(tipoQuintetto)
-        print(f"Quintetti provati: {nProvati}")
+        print(f"Quintetti provati: {nProvati} in {fine - inizio:.4f} secondi")
 
         listaDesideri = self._model.getListaDesideri()
         self.mostraLista()
@@ -276,7 +287,10 @@ class Controller:
                 self._view.create_alert("L'età massima deve essere un numero intero")
                 return
 
+        inizio = time.perf_counter()
         risultati = self._model.getGiocatoriRicerca(ruolo, etaMassima, nazionalita, specialita)
+        fine = time.perf_counter()
+        print(f"Ricerca: {len(risultati)} giocatori in {fine - inizio:.4} secondi")
 
         self._view._txtAggiuntaRicerca.value = ""
         self._view.mostraRicerca(risultati)
