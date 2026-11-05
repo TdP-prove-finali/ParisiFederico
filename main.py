@@ -12,5 +12,4 @@ def main(page: ft.Page):
     myView.set_controller(myController)
     myView.load_interface()
 
-
 ft.app(target=main)
