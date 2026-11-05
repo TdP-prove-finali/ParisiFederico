@@ -9,7 +9,7 @@ Video dimostrativo: (link da aggiungere)
 ISTRUZIONI PER L'UTILIZZO
 1. Fare il fork del progetto al seguente link: https://github.com/TdP-prove-finali/ParisiFederico
 2. Installare le librerie con: pip install -r requirements.txt
-3. Importare in MariaDB il file database/scoutingBasket_completo.sql, che crea il database scouting_basket con tutti i dati
+3. Creare il database eseguendo in MariaDB lo script database/scoutingBasket_completo.sql: contiene sia la struttura delle tabelle sia i dati raccolti.
 4. Inserire i propri dati di accesso a MariaDB nel file database/connector.cnf
 5. Eseguire main.py
 
