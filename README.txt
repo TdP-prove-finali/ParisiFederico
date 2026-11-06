@@ -4,7 +4,7 @@ Federico Parisi (s314176) - Prova finale di Tecniche di Programmazione
 Applicazione di scouting e analisi per i Dirigenti Sportivi dei campionati di
 pallacanestro Serie A2 e Serie B Nazionale (stagioni 2024/25 e 2025/26).
 
-Video dimostrativo: (link da aggiungere)
+Video dimostrativo: https://www.youtube.com/watch?v=kdvNr2rZdZc
 
 ISTRUZIONI PER L'UTILIZZO
 1. Fare il fork del progetto al seguente link: https://github.com/TdP-prove-finali/ParisiFederico
